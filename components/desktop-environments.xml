@@ -1,0 +1,42 @@
+<image>
+	<profiles>
+		<profile name="DesktopCommon" description="Common desktop packages">
+			<requires profile="Common"/>
+		</profile>
+		<profile name="GNOME-Desktop" description="GNOME Desktop">
+			<requires profile="DesktopCommon"/>
+		</profile>
+		<profile name="KDE-Desktop" description="KDE Plasma Desktop">
+			<requires profile="DesktopCommon"/>
+		</profile>
+	</profiles>
+	<packages type="image" profiles="DesktopCommon">
+		<namedCollection name="base-x"/>
+		<namedCollection name="firefox"/>
+		<namedCollection name="fonts"/>
+		<namedCollection name="input-methods"/>
+		<namedCollection name="libreoffice"/>
+		<namedCollection name="multimedia"/>
+		<namedCollection name="printing"/>
+		<package name="aajohan-comfortaa-fonts"/>
+		<package name="initial-setup-gui"/>
+		<package name="mediawriter"/>
+		<ignore name="@dial-up"/>
+		<ignore name="@guest-desktop-agents"/>
+	</packages>
+	<packages type="image" profiles="GNOME-Desktop">
+		<namedCollection name="workstation-product-environment"/>
+		<package name="fedora-release-workstation"/>
+	</packages>
+	<packages type="image" profiles="KDE-Desktop">
+		<ignore name="@admin-tools"/>
+		<ignore name="gnome-disk-utility"/>
+		<ignore name="system-config-printer"/>
+		<namedCollection name="kde-desktop-environment"/>
+		<namedCollection name="kde-apps"/>
+		<namedCollection name="kde-media"/>
+		<package name="fuse"/>
+		<package name="fedora-release-kde"/>
+		<package name="kde-l10n"/>
+	</packages>
+</image>

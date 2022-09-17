@@ -1,0 +1,29 @@
+<image>
+	<profiles>
+		<profile name="Server" description="Server Disk Image">
+			<requires profile="BootCore"/>
+			<requires profile="Common"/>
+		</profile>
+	</profiles>
+	<preferences profiles="Server">
+		<type image="oem" filesystem="btrfs" kernelcmdline="USE_BY_UUID_DEVICE_NAMES=1 rootdelay=300 scsi_mod.use_blk_mq=1 multipath=off" devicepersistency="by-uuid" bootpartition="true" bootpartsize="1000" bootfilesystem="xfs" efipartsize="100" firmware="uefi">
+			<bootloader name="grub2" console="serial" timeout="1" timeout_style="countdown"/>
+			<systemdisk name="fedora">
+				<volume name="home"/>
+				<volume name="root"/>
+				<volume name="var"/>
+			</systemdisk>
+			<size unit="G">20</size>
+			<oemconfig>
+				<oem-resize>false</oem-resize>
+			</oemconfig>
+		</type>
+	</preferences>
+	<packages type="image" profiles="Server">
+		<namedCollection name="container-management"/>
+		<namedCollection name="domain-client"/>
+		<namedCollection name="headless-management"/>
+		<namedCollection name="server-product"/>
+		<package name="fedora-release-server"/>
+	</packages>
+</image>

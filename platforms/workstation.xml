@@ -1,0 +1,30 @@
+<image>
+	<profiles>
+		<profile name="WorkstationCommon" description="Workstation spin common configuration">
+			<requires profile="BootCore"/>
+			<requires profile="DesktopCommon"/>
+		</profile>
+		<profile name="Workstation-GNOME" description="Workstation with GNOME Desktop">
+			<requires profile="WorkstationCommon"/>
+			<requires profile="GNOME-Desktop"/>
+		</profile>
+		<profile name="Workstation-KDE" description="Workstation with KDE Desktop">
+			<requires profile="WorkstationCommon"/>
+			<requires profile="KDE-Desktop"/>
+		</profile>
+	</profiles>
+	<preferences profiles="WorkstationCommon">
+		<type image="oem" filesystem="btrfs" kernelcmdline="USE_BY_UUID_DEVICE_NAMES=1 scsi_mod.use_blk_mq=1 multipath=off rhgb quiet" devicepersistency="by-uuid" bootpartition="true" bootpartsize="1000" bootfilesystem="ext4" efipartsize="250" firmware="uefi">
+			<bootloader name="grub2" console="serial" timeout="1" timeout_style="countdown"/>
+			<systemdisk name="fedora">
+				<volume name="home"/>
+				<volume name="root"/>
+				<volume name="var"/>
+			</systemdisk>
+			<size unit="G">20</size>
+			<oemconfig>
+				<oem-resize>false</oem-resize>
+			</oemconfig>
+		</type>
+	</preferences>
+</image>

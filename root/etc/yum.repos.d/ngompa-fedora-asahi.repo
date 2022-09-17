@@ -1,0 +1,11 @@
+[copr:copr.fedorainfracloud.org:ngompa:fedora-asahi]
+name=Copr repo for fedora-asahi owned by ngompa
+baseurl=https://download.copr.fedorainfracloud.org/results/ngompa/fedora-asahi/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=False
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/ngompa/fedora-asahi/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+priority=1

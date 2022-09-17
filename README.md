@@ -1,0 +1,60 @@
+# Fedora Asahi Remix KIWI descriptions
+
+This contains the KIWI descriptions for building the Fedora Asahi Remix.
+
+## Spin variants
+
+* Server (image type: `oem`, image profiles: `Server`)
+* Workstation GNOME (image type: `oem`, image profiles: `Workstation-GNOME`)
+* Workstation KDE (image type: `oem`, image profiles: `Workstation-KDE`)
+
+## Spin build quickstart
+
+### Pre-requisites for non-AArch64 hosts
+
+On non-AArch64 hosts, install `qemu-user-static` and restart the binfmt service:
+
+```bash
+$ sudo dnf --assumeyes install qemu-user-static
+$ sudo systemctl restart systemd-binfmt.service
+```
+
+### Podman
+
+The instructions below will use the `podman` command. Only Podman is supported for this workflow.
+
+First, pull down the container of the required environment (Fedora Linux 36 or higher works). We'll use Fedora Linux 37.
+
+```bash
+$ sudo podman pull registry.fedoraproject.org/fedora:37-aarch64
+```
+
+Assuming you're in the root directory of the Git checkout, set up the container:
+
+```bash
+$ sudo podman run --privileged --rm -it -v $PWD:/code:z -w /code registry.fedoraproject.org/fedora:37-aarch64 /bin/bash
+```
+
+Once in the container environment, set up your development environment and run the image build (substitute `<image_type>` and `<image_profile>` for the appropriate settings):
+
+```bash
+# Install kiwi
+[]$ dnf --assumeyes install kiwi
+# Run the image build
+[]$ kiwi-ng --type=<image_type> --profile=<image_profile> --color-output system build --description ./ --target-dir ./outdir
+```
+
+## Licensing
+
+This is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, under version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.

@@ -1,0 +1,24 @@
+<image>
+	<profiles>
+		<profile name="BootCore" description="Boot core packages"/>
+	</profiles>
+	<packages type="image" profiles="BootCore">
+		<package name="grub2-efi-aa64" arch="aarch64"/>
+		<package name="grub2-efi-aa64-modules" arch="aarch64"/>
+		<package name="grub2-efi-x64" arch="x86_64"/>
+		<package name="grub2-efi-x64-modules" arch="x86_64"/>
+		<package name="grub2-pc" arch="x86_64"/>
+		<package name="grub2-pc-modules" arch="x86_64"/>
+		<package name="shim-signed-aa64" arch="aarch64"/>
+		<package name="shim-signed-x64" arch="x86_64"/>
+		<package name="grub2-efi-aa64" arch="aarch64"/>
+		<package name="kernel"/>
+		<package name="kernel-modules-extra"/>
+		<package name="systemd-oomd-defaults"/>
+		<package name="systemd-resolved"/>
+		<!-- Asahi packages -->
+		<package name="dracut-config-asahi" arch="aarch64"/>
+		<package name="update-m1n1" arch="aarch64"/>
+		<package name="update-vendor-firmware" arch="aarch64"/>
+	</packages>
+</image>

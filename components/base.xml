@@ -1,0 +1,17 @@
+<image>
+	<profiles>
+		<profile name="Common" description="Common packages"/>
+	</profiles>
+	<packages type="image" profiles="Common">
+		<namedCollection name="core"/>
+		<namedCollection name="standard"/>
+		<namedCollection name="hardware-support"/>
+		<namedCollection name="arm-tools" arch="aarch64"/>
+		<package name="bcm283x-firmware"/>
+		<package name="chrony"/>
+		<package name="dracut-config-generic"/>
+		<package name="initial-setup"/>
+		<package name="glibc-all-langpacks"/>
+		<ignore name="generic-release*"/>
+	</packages>
+</image>
