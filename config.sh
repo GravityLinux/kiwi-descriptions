@@ -71,20 +71,6 @@ else
 fi
 
 #======================================
-# Setup device firmware
-#--------------------------------------
-
-# Find the architecture we are on
-arch=$(uname -m)
-
-# Setup Raspberry Pi firmware
-if [[ "$arch" == "aarch64" ]]; then
-	cp -P /usr/share/uboot/rpi_3/u-boot.bin /boot/efi/rpi3-u-boot.bin
-	cp -P /usr/share/uboot/rpi_4/u-boot.bin /boot/efi/rpi4-u-boot.bin
-	cp -P /usr/share/uboot/rpi_arm64/u-boot.bin /boot/efi/rpi-u-boot.bin
-fi
-
-#======================================
 # Import GPG keys
 #--------------------------------------
 
