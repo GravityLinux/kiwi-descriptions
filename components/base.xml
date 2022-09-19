@@ -2,7 +2,7 @@
 	<profiles>
 		<profile name="Common" description="Common packages"/>
 	</profiles>
-	<packages type="image" profiles="Common">
+	<packages type="image" patternType="plusRecommended" profiles="Common">
 		<namedCollection name="core"/>
 		<namedCollection name="standard"/>
 		<namedCollection name="hardware-support"/>

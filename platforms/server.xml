@@ -19,7 +19,7 @@
 			</oemconfig>
 		</type>
 	</preferences>
-	<packages type="image" profiles="Server">
+	<packages type="image" patternType="plusRecommended" profiles="Server">
 		<namedCollection name="container-management"/>
 		<namedCollection name="domain-client"/>
 		<namedCollection name="headless-management"/>
