@@ -82,4 +82,10 @@ rpm -qa --qf '%{size}\t%{name}-%{version}-%{release}.%{arch}\n' |sort -rn
 # Note that running rpm recreates the rpm db files which aren't needed or wanted
 rm -f /var/lib/rpm/__db*
 
+#======================================
+# Force selinux relabel on firstboot
+#--------------------------------------
+# Workaround for https://github.com/OSInside/kiwi/issues/2192
+touch /.autorelabel
+
 exit 0
