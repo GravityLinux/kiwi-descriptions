@@ -20,6 +20,5 @@
 		<package name="asahi-fwextract" arch="aarch64"/>
 		<package name="dracut-asahi" arch="aarch64"/>
 		<package name="update-m1n1" arch="aarch64"/>
-		<package name="update-vendor-firmware" arch="aarch64"/>
 	</packages>
 </image>
