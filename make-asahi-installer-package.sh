@@ -76,7 +76,7 @@ cat > installer_data.json <<EOF
                 {
                     "name": "Boot",
                     "type": "Linux",
-                    "size": "1GB",
+                    "size": "1050MB",
                     "image": "boot.img"
                 },
                 {
