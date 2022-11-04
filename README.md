@@ -19,6 +19,8 @@ $ sudo dnf --assumeyes install qemu-user-static
 $ sudo systemctl restart systemd-binfmt.service
 ```
 
+Note that building non-aarch64 is untested and likely to expose bugs.
+
 ### Podman
 
 The instructions below will use the `podman` command. Only Podman is supported for this workflow.
@@ -42,6 +44,21 @@ Once in the container environment, set up your development environment and run t
 []$ dnf --assumeyes install kiwi
 # Run the image build
 []$ kiwi-ng --type=<image_type> --profile=<image_profile> --color-output system build --description ./ --target-dir ./outdir
+```
+
+For example, to build the --profile=Workstation-GNOME profile:
+
+```bash
+[]$ kiwi-ng --debug --type=oem --profile=Workstation-GNOME --color-output system build --description ./ --target-dir ./outdir
+```
+
+We also provide a script to generate an [Asahi Installer](https://github.com/AsahiLinux/asahi-installer) package from the raw image that kiwi produces:
+
+```bash
+# Install prerequsites
+[]$ dnf --assumeyes install fatcat gawk util-linux zip
+# Build the package
+[]$ ./make-asahi-installer-package.sh outdir/Fedora-Asahi-Remix.aarch64-0.0.0.raw package.zip
 ```
 
 ## Licensing
