@@ -12,6 +12,7 @@
 		<package name="shim-signed-aa64" arch="aarch64"/>
 		<package name="shim-signed-x64" arch="x86_64"/>
 		<package name="grub2-efi-aa64" arch="aarch64"/>
+		<package name="uboot-images-armv8" arch="aarch64"/>
 		<package name="kernel"/>
 		<package name="kernel-modules-extra"/>
 		<package name="systemd-oomd-defaults"/>
