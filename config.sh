@@ -88,4 +88,10 @@ rm -f /var/lib/rpm/__db*
 # Workaround for https://github.com/OSInside/kiwi/issues/2192
 touch /.autorelabel
 
+#======================================
+# Generate boot.bin
+#======================================
+mkdir -p /boot/efi/m1n1
+update-m1n1 /boot/efi/m1n1/boot.bin
+
 exit 0
