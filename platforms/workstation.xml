@@ -21,7 +21,7 @@
 				<volume name="root"/>
 				<volume name="var"/>
 			</systemdisk>
-			<size unit="G">20</size>
+			<size unit="G">15</size>
 			<oemconfig>
 				<oem-resize>false</oem-resize>
 			</oemconfig>

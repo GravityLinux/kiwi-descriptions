@@ -1,0 +1,3 @@
+#!/bin/sh
+
+gawk -i inplace '$2 == "/" { $4 = $4",x-systemd.growfs" } { print $0 }' /etc/fstab
