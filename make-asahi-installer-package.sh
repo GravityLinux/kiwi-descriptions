@@ -15,9 +15,12 @@ requireCommands() {
   done
 }
 
+release='rawhide'
 date=$(date +%Y%m%d)
 image="${1:-outdir/Fedora-Asahi-Remix.aarch64-0.0.0.raw}"
-package="${2:-fedora-rawhide-${date}}"
+package="${2:-fedora-${release}-${date}}"
+
+[ "$release" = rawhide ] && pretty_release="Rawhide" || pretty_release="$release"
 
 if [ ! -r "$image" ]; then
   fail "$image does not exist or cannot be read!"
@@ -68,8 +71,8 @@ cat > installer_data.json <<EOF
 {
     "os_list": [
         {
-            "name": "Fedora Rawide",
-            "default_os_name": "Fedora Rawhide",
+            "name": "Fedora Linux ${pretty_release}",
+            "default_os_name": "Fedora Linux ${pretty_release}",
             "boot_object": "m1n1.bin",
             "next_object": "m1n1/boot.bin",
             "package": "${package}.zip",
