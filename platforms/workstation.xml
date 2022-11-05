@@ -19,7 +19,6 @@
 			<systemdisk name="fedora">
 				<volume name="home"/>
 				<volume name="root"/>
-				<volume name="var"/>
 			</systemdisk>
 			<size unit="G">15</size>
 			<oemconfig>
