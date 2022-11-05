@@ -1,2 +1,4 @@
 outdir/
 fedora.icns
+installer_data.json
+fedora-*.zip
