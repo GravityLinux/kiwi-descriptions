@@ -47,11 +47,17 @@ fatcat "${workdir}/${imagename}1" -x "${workdir}/package/esp"
 mv "${workdir}/${imagename}2" "${workdir}/package/boot.img"
 mv "${workdir}/${imagename}3" "${workdir}/package/root.img"
 
+esp_volume_id="$(file "${workdir}/${imagename}1" | awk -v 'RS=,' '/serial number/ { print $3 }')"
+esp_size="$(stat -c %s "${workdir}/${imagename}1")"
+boot_size="$(stat -c %s "${workdir}/package/boot.img")"
+# TODO: round up the size instead of hardcoding
+truncate -s 10G "${workdir}/package/root.img"
+root_size="$(stat -c %s "${workdir}/package/root.img")"
+
 pushd "${workdir}/package" > /dev/null
 zip -r "${basedir}/${package}" .
 popd > /dev/null
 
-volume_id="$(file "${workdir}/${imagename}1" | awk -v 'RS=,' '/serial number/ { print $3 }')"
 cat > installer_data.json <<EOF
 {
     "os_list": [
@@ -66,9 +72,9 @@ cat > installer_data.json <<EOF
                 {
                     "name": "EFI",
                     "type": "EFI",
-                    "size": "500MB",
+                    "size": "${esp_size}B",
                     "format": "fat",
-                    "volume_id": "${volume_id}",
+                    "volume_id": "${esp_volume_id}",
                     "copy_firmware": true,
                     "copy_installer_data": true,
                     "source": "esp"
@@ -76,13 +82,13 @@ cat > installer_data.json <<EOF
                 {
                     "name": "Boot",
                     "type": "Linux",
-                    "size": "1050MB",
+                    "size": "${boot_size}B",
                     "image": "boot.img"
                 },
                 {
                     "name": "Root",
                     "type": "Linux",
-                    "size": "15GB",
+                    "size": "${root_size}B",
                     "expand": true,
                     "image": "root.img"
                 }
