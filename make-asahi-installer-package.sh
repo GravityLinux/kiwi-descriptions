@@ -54,6 +54,12 @@ boot_size="$(stat -c %s "${workdir}/package/boot.img")"
 truncate -s 10G "${workdir}/package/root.img"
 root_size="$(stat -c %s "${workdir}/package/root.img")"
 
+# boot picket icon
+if [ ! -f fedora.icns ]; then
+  wget https://pagure.io/fedora-logos/blob/master/f/bootloader/fedora.icns
+fi
+cp -p fedora.icns "${workdir}/package"
+
 pushd "${workdir}/package" > /dev/null
 zip -r "${basedir}/${package}" .
 popd > /dev/null
@@ -67,6 +73,7 @@ cat > installer_data.json <<EOF
             "boot_object": "m1n1.bin",
             "next_object": "m1n1/boot.bin",
             "package": "${package}.zip",
+            "icon": "fedora.icns",
             "supported_fw": ["12.3", "12.4"],
             "partitions": [
                 {
