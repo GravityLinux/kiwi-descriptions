@@ -13,5 +13,6 @@
 		<ignore name="generic-release*"/>
 		<!-- Asahi packages -->
 		<package name="alsa-ucm-asahi"/>
+		<package name="asahi-repos"/>
 	</packages>
 </image>
