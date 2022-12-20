@@ -34,13 +34,6 @@ touch /etc/machine-id
 rm -f /var/lib/systemd/random-seed
 
 #======================================
-# Configure grub correctly
-#--------------------------------------
-## Works around issues with grub-bls
-## See: https://github.com/OSInside/kiwi/issues/2198
-echo "GRUB_DEFAULT=saved" >> /etc/default/grub
-
-#======================================
 # Delete & lock the root user password
 #--------------------------------------
 passwd -d root
