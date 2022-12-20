@@ -2,6 +2,8 @@
 
 This contains the KIWI descriptions for building the Fedora Asahi Remix.
 
+This repository has multiple branches, one for each supported Fedora release. The default branch is `rawhide`, and is probably _not_ what you want.
+
 ## Spin variants
 
 * Server (image type: `oem`, image profiles: `Server`)
@@ -60,6 +62,10 @@ We also provide a script to generate an [Asahi Installer](https://github.com/Asa
 # Build the package
 []$ ./make-asahi-installer-package.sh outdir/Fedora-Asahi-Remix.aarch64-0.0.0.raw package.zip
 ```
+
+## Contributing
+
+Please default to submitting PRs against the `rawhide` branch. Release branches should generally merge from `rawhide` and only deviate where absolutely necessary.
 
 ## Licensing
 
