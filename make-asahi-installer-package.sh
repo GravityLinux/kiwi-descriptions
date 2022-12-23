@@ -32,7 +32,7 @@ fi
 
 requireCommands 7z awk cat cp dd fdisk file mkdir mv stat wget
 
-workdir="$(mktemp -d)"
+workdir="$(mktemp -dp /var/tmp)"
 trap 'rm -rf "$workdir"' EXIT
 
 basedir="$PWD"
