@@ -6,14 +6,13 @@
 		</profile>
 	</profiles>
 	<preferences profiles="Server">
-		<type image="oem" filesystem="btrfs" kernelcmdline="USE_BY_UUID_DEVICE_NAMES=1 rootdelay=300 scsi_mod.use_blk_mq=1 multipath=off" devicepersistency="by-uuid" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="xfs" efipartsize="100" firmware="uefi" fsmountoptions="x-systemd.growfs,compress=zstd:1">
-			<bootloader name="grub2" console="serial" timeout="1" timeout_style="countdown"/>
+		<type image="oem" filesystem="btrfs" kernelcmdline="scsi_mod.use_blk_mq=1 multipath=off" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="xfs" efipartsize="500" firmware="uefi" fsmountoptions="x-systemd.growfs,compress=zstd:1">
+			<bootloader name="grub2" console="console" timeout="5" timeout_style="hidden"/>
 			<systemdisk name="fedora">
 				<volume name="home"/>
 				<volume name="root"/>
 				<volume name="var"/>
 			</systemdisk>
-			<size unit="G">20</size>
 			<oemconfig>
 				<oem-resize>false</oem-resize>
 			</oemconfig>
