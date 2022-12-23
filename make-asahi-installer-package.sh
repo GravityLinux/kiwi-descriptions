@@ -30,7 +30,7 @@ if [ -e "$package" ]; then
   fail "$package already exists, aborting"
 fi
 
-requireCommands sfdisk awk fatcat zip
+requireCommands 7z awk cat cp dd fdisk file mkdir mv stat wget
 
 workdir="$(mktemp -d)"
 trap 'rm -rf "$workdir"' EXIT
@@ -41,30 +41,28 @@ imagedir="$(dirname "$image")"
 
 # extract filesystems from disk image
 pushd "$imagedir" > /dev/null
-eval "$(sfdisk -ql "$imagename" | awk "NR>=2 { printf \"dd if=${imagename} of=${workdir}/%s skip=%s count=%s\\n\", \$1, \$2, \$4 }")"
+eval "$(fdisk -Lnever -lu -b 4096 "$imagename" | awk "/^${imagename}/ { printf \"dd if=${imagename} of=${workdir}/%s skip=%s count=%s bs=4096\\n\", \$1, \$2, \$4 }")"
 popd > /dev/null
 
 # build package
 mkdir -p "${workdir}/package/esp"
-fatcat "${workdir}/${imagename}1" -x "${workdir}/package/esp"
+7z x -o"${workdir}/package/esp" "${workdir}/${imagename}1"
 mv "${workdir}/${imagename}2" "${workdir}/package/boot.img"
 mv "${workdir}/${imagename}3" "${workdir}/package/root.img"
 
 esp_volume_id="$(file "${workdir}/${imagename}1" | awk -v 'RS=,' '/serial number/ { print $3 }')"
 esp_size="$(stat -c %s "${workdir}/${imagename}1")"
 boot_size="$(stat -c %s "${workdir}/package/boot.img")"
-# TODO: round up the size instead of hardcoding
-truncate -s 10G "${workdir}/package/root.img"
 root_size="$(stat -c %s "${workdir}/package/root.img")"
 
-# boot picket icon
+# boot picker icon
 if [ ! -f fedora.icns ]; then
   wget https://pagure.io/fedora-logos/blob/master/f/bootloader/fedora.icns
 fi
 cp -p fedora.icns "${workdir}/package"
 
 pushd "${workdir}/package" > /dev/null
-zip -r "${basedir}/${package}" .
+7z a -tzip -r "${basedir}/${package}" .
 popd > /dev/null
 
 cat > installer_data.json <<EOF
