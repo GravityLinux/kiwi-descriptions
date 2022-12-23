@@ -6,7 +6,7 @@
 		</profile>
 	</profiles>
 	<preferences profiles="Server">
-		<type image="oem" filesystem="btrfs" kernelcmdline="USE_BY_UUID_DEVICE_NAMES=1 rootdelay=300 scsi_mod.use_blk_mq=1 multipath=off" devicepersistency="by-uuid" bootpartition="true" bootpartsize="1000" bootfilesystem="xfs" efipartsize="100" firmware="uefi">
+		<type image="oem" filesystem="btrfs" kernelcmdline="USE_BY_UUID_DEVICE_NAMES=1 rootdelay=300 scsi_mod.use_blk_mq=1 multipath=off" devicepersistency="by-uuid" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="xfs" efipartsize="100" firmware="uefi" fsmountoptions="x-systemd.growfs,compress=zstd:1">
 			<bootloader name="grub2" console="serial" timeout="1" timeout_style="countdown"/>
 			<systemdisk name="fedora">
 				<volume name="home"/>
