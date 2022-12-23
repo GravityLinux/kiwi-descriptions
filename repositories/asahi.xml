@@ -6,12 +6,12 @@
 	</repository>
         <repository type="rpm-md" alias="copr_copr.fedorainfracloud.org_group_asahi_fedora-remix-branding" sourcetype="baseurl" priority="1">
 		<source path="https://download.copr.fedorainfracloud.org/results/@asahi/fedora-remix-branding/fedora-$releasever-$basearch/">
-			<signing key="https://download.copr.fedorainfracloud.org/results/@asahi/fedora-remix-branding//pubkey.gpg"/>
+			<signing key="https://download.copr.fedorainfracloud.org/results/@asahi/fedora-remix-branding/pubkey.gpg"/>
 		</source>
 	</repository>
-	<repository type="rpm-md" alias="copr_copr.fedorainfracloud.org_ngompa_fedora-asahi" sourcetype="baseurl" priority="1">
-		<source path="https://download.copr.fedorainfracloud.org/results/ngompa/fedora-asahi/fedora-$releasever-$basearch/">
-			<signing key="https://download.copr.fedorainfracloud.org/results/ngompa/fedora-asahi/pubkey.gpg"/>
+	<repository type="rpm-md" alias="copr_copr.fedorainfracloud.org_group_asahi_kernel" sourcetype="baseurl" priority="5">
+		<source path="https://download.copr.fedorainfracloud.org/results/@asahi/kernel/fedora-$releasever-$basearch/">
+			<signing key="https://download.copr.fedorainfracloud.org/results/@asahi/kernel/pubkey.gpg"/>
 		</source>
 	</repository>
 </image>
