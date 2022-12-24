@@ -20,9 +20,7 @@
 	</preferences>
 	<packages type="image" patternType="plusRecommended" profiles="Server">
 		<namedCollection name="container-management"/>
-		<namedCollection name="domain-client"/>
-		<namedCollection name="headless-management"/>
-		<namedCollection name="server-product"/>
+		<namedCollection name="server-product-environment"/>
 		<package name="fedora-release-server"/>
 	</packages>
 </image>
