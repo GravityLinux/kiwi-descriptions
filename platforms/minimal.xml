@@ -1,11 +1,11 @@
 <image>
 	<profiles>
-		<profile name="minimal" description="Minimal Environment">
+		<profile name="Minimal" description="Minimal Environment">
 			<requires profile="BootCore"/>
 			<requires profile="Common"/>
 		</profile>
 	</profiles>
-	<preferences profiles="minimal">
+	<preferences profiles="Minimal">
 		<type image="oem" filesystem="btrfs" kernelcmdline="scsi_mod.use_blk_mq=1 multipath=off" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="ext4" efipartsize="500" firmware="uefi" fsmountoptions="x-systemd.growfs,compress=zstd:1">
 			<bootloader name="grub2" console="console" timeout="5" timeout_style="hidden"/>
 			<systemdisk name="fedora">
@@ -17,4 +17,7 @@
 			</oemconfig>
 		</type>
 	</preferences>
+	<packages type="image" patternType="plusRecommended" profiles="Minimal">
+		<package name="fedora-release"/>
+	</packages>
 </image>

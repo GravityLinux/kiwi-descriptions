@@ -6,6 +6,7 @@ This repository has multiple branches, one for each supported Fedora release. Th
 
 ## Spin variants
 
+* Minimal (image type: `oem`, image profiles: `Minimal`)
 * Server (image type: `oem`, image profiles: `Server`)
 * Workstation GNOME (image type: `oem`, image profiles: `Workstation-GNOME`)
 * Workstation KDE (image type: `oem`, image profiles: `Workstation-KDE`)
