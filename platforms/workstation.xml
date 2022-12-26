@@ -4,6 +4,10 @@
 			<requires profile="BootCore"/>
 			<requires profile="DesktopCommon"/>
 		</profile>
+		<profile name="Workstation-Cinnamon" description="Workstation with Cinnamon Desktop">
+			<requires profile="WorkstationCommon"/>
+			<requires profile="Cinnamon-Desktop"/>
+		</profile>
 		<profile name="Workstation-GNOME" description="Workstation with GNOME Desktop">
 			<requires profile="WorkstationCommon"/>
 			<requires profile="GNOME-Desktop"/>

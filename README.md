@@ -8,6 +8,7 @@ This repository has multiple branches, one for each supported Fedora release. Th
 
 * Minimal (image type: `oem`, image profiles: `Minimal`)
 * Server (image type: `oem`, image profiles: `Server`)
+* Workstation Cinnamon (image type: `oem`, image profiles: `Workstation-Cinnamon`)
 * Workstation GNOME (image type: `oem`, image profiles: `Workstation-GNOME`)
 * Workstation KDE (image type: `oem`, image profiles: `Workstation-KDE`)
 

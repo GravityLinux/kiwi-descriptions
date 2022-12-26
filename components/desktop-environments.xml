@@ -3,6 +3,9 @@
 		<profile name="DesktopCommon" description="Common desktop packages">
 			<requires profile="Common"/>
 		</profile>
+		<profile name="Cinnamon-Desktop" description="Cinnamon Desktop">
+			<requires profile="DesktopCommon"/>
+		</profile>
 		<profile name="GNOME-Desktop" description="GNOME Desktop">
 			<requires profile="DesktopCommon"/>
 		</profile>
@@ -24,19 +27,23 @@
 		<ignore name="@dial-up"/>
 		<ignore name="@guest-desktop-agents"/>
 	</packages>
+	<packages type="image" patternType="plusRecommended" profiles="Cinnamon-Desktop">
+		<namedCollection name="cinnamon-desktop-environment"/>
+		<package name="fedora-release-cinnamon"/>
+	</packages>
 	<packages type="image" patternType="plusRecommended" profiles="GNOME-Desktop">
 		<namedCollection name="workstation-product-environment"/>
 		<package name="fedora-release-workstation"/>
 	</packages>
 	<packages type="image" patternType="plusRecommended" profiles="KDE-Desktop">
-		<ignore name="@admin-tools"/>
-		<ignore name="gnome-disk-utility"/>
-		<ignore name="system-config-printer"/>
 		<namedCollection name="kde-desktop-environment"/>
 		<namedCollection name="kde-apps"/>
 		<namedCollection name="kde-media"/>
 		<package name="fuse"/>
 		<package name="fedora-release-kde"/>
 		<package name="kde-l10n"/>
+		<ignore name="@admin-tools"/>
+		<ignore name="gnome-disk-utility"/>
+		<ignore name="system-config-printer"/>
 	</packages>
 </image>
