@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<image schemaversion="7.4" name="Fedora-Asahi-Remix">
+<image schemaversion="7.4" name="Fedora-Asahi-Remix" displayname="Asahi Fedora Linux Remix">
 	<description type="system">
 		<author>Neal Gompa</author>
 		<contact>ngompa@fedoraproject.org</contact>
