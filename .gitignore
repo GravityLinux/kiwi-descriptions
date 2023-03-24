@@ -1,4 +1,5 @@
 outdir/
 fedora.icns
 installer_data.json
+merged_installer_data.json
 fedora-*.zip
