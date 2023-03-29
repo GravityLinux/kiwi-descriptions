@@ -29,6 +29,7 @@ setsebool -P selinuxuser_execmod 1
 #--------------------------------------
 ## Clear machine-id on pre generated images
 rm -f /etc/machine-id
+echo 'uninitialized' > /etc/machine-id
 ## remove random seed, the newly installed instance should make its own
 rm -f /var/lib/systemd/random-seed
 
