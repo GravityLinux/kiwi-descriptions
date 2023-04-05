@@ -6,6 +6,7 @@
 		<namedCollection name="core"/>
 		<namedCollection name="standard"/>
 		<namedCollection name="hardware-support"/>
+		<package name="NetworkManager-wifi"/>
 		<package name="chrony"/>
 		<package name="dracut-config-generic"/>
 		<package name="initial-setup"/>
