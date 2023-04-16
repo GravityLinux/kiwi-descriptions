@@ -3,9 +3,6 @@
 		<profile name="DesktopCommon" description="Common desktop packages">
 			<requires profile="Common"/>
 		</profile>
-		<profile name="Cinnamon-Desktop" description="Cinnamon Desktop">
-			<requires profile="DesktopCommon"/>
-		</profile>
 		<profile name="GNOME-Desktop" description="GNOME Desktop">
 			<requires profile="DesktopCommon"/>
 		</profile>
@@ -26,10 +23,6 @@
 		<package name="mediawriter"/>
 		<ignore name="@dial-up"/>
 		<ignore name="@guest-desktop-agents"/>
-	</packages>
-	<packages type="image" patternType="plusRecommended" profiles="Cinnamon-Desktop">
-		<namedCollection name="cinnamon-desktop-environment"/>
-		<package name="fedora-release-cinnamon"/>
 	</packages>
 	<packages type="image" patternType="plusRecommended" profiles="GNOME-Desktop">
 		<namedCollection name="workstation-product-environment"/>

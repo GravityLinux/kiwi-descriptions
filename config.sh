@@ -75,7 +75,7 @@ touch /etc/reconfigSys
 #======================================
 # Setup default target
 #--------------------------------------
-if [[ "$kiwi_profiles" == *"Cinnamon"* ]] || [[ "$kiwi_profiles" == *"GNOME"* ]] || [[ "$kiwi_profiles" == *"KDE"* ]]; then
+if [[ "$kiwi_profiles" == *"GNOME"* ]] || [[ "$kiwi_profiles" == *"KDE"* ]]; then
 	systemctl set-default graphical.target
 else
 	systemctl set-default multi-user.target
