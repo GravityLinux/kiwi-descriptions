@@ -12,6 +12,7 @@
 		<package name="initial-setup"/>
 		<package name="glibc-all-langpacks"/>
 		<ignore name="generic-release*"/>
+		<ignore name="generic-logos*"/>
 		<!-- Asahi packages -->
 		<package name="alsa-ucm-asahi"/>
 		<package name="asahi-repos"/>
