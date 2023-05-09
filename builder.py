@@ -26,12 +26,12 @@ if not RELEASE:
 TARGETS = {
     "kde": {
         "profile": "Workstation-KDE",
-        "name": f"Fedora Linux {RELEASE} KDE Plasma Desktop",
+        "name": f"Fedora Linux {RELEASE} KDE Plasma",
         "id": "kde",
     },
     "gnome": {
         "profile": "Workstation-GNOME",
-        "name": f"Fedora Linux {RELEASE} Workstation (GNOME)",
+        "name": f"Fedora Linux {RELEASE} GNOME",
         "id": "gnome",
     },
     "server": {
