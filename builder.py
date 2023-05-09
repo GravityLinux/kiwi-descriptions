@@ -22,26 +22,32 @@ RELEASE = os.getenv("FEDORA_RELEASE")
 if not RELEASE:
     fail("FEDORA_RELEASE is not defined in your environment, aborting")
 
+TODAY = date.today().strftime("%Y%m%d")
+
 # TODO: should be a class using abc
 TARGETS = {
     "kde": {
         "profile": "Workstation-KDE",
-        "name": f"Fedora Linux {RELEASE} KDE Plasma",
+        "name": f"Fedora Linux {RELEASE} with KDE Plasma ({TODAY})",
+        "os_name": "Fedora Linux with KDE Plasma",
         "id": "kde",
     },
     "gnome": {
         "profile": "Workstation-GNOME",
-        "name": f"Fedora Linux {RELEASE} GNOME",
+        "name": f"Fedora Linux {RELEASE} with GNOME ({TODAY})",
+        "os_name": "Fedora Linux with GNOME",
         "id": "gnome",
     },
     "server": {
         "profile": "Server",
-        "name": f"Fedora Linux {RELEASE} Server",
+        "name": f"Fedora Linux {RELEASE} Server ({TODAY})",
+        "os_name": "Fedora Linux Server",
         "id": "server",
     },
     "minimal": {
         "profile": "Minimal",
-        "name": f"Fedora Linux {RELEASE} Minimal",
+        "name": f"Fedora Linux {RELEASE} Minimal ({TODAY})",
+        "os_name": "Fedora Linux Minimal",
         "id": "minimal",
     },
 }
@@ -114,15 +120,14 @@ def kiwiBuild(profile):
 def packageBuild(target):
     # TODO: rewrite in python instead of shelling out
     runCommand(["./make-asahi-installer-package.sh"])
-    today = date.today().strftime("%Y%m%d")
 
-    package = f"fedora-{RELEASE}-{target['id']}-{today}.zip"
-    os.rename(f"fedora-{RELEASE}-{today}.zip", package)
+    package = f"fedora-{RELEASE}-{target['id']}-{TODAY}.zip"
+    os.rename(f"fedora-{RELEASE}-{TODAY}.zip", package)
     with open("installer_data.json", "r") as f:
         data = json.load(f)
 
-    data["os_list"][0]["name"] = f"{target['name']} ({today})"
-    data["os_list"][0]["default_os_name"] = target["name"]
+    data["os_list"][0]["name"] = target["name"]
+    data["os_list"][0]["default_os_name"] = target["os_name"]
     data["os_list"][0]["package"] = package
 
     with open("installer_data.json", "w") as f:
@@ -148,8 +153,7 @@ def invalidateCF(path):
 
 
 def packageUpload(target):
-    today = date.today().strftime("%Y%m%d")
-    package = f"fedora-{RELEASE}-{target['id']}-{today}.zip"
+    package = f"fedora-{RELEASE}-{target['id']}-{TODAY}.zip"
 
     uploadToS3(package, f"os/{package}")
 
