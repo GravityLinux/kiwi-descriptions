@@ -24,15 +24,15 @@ if not RELEASE:
 
 # TODO: should be a class using abc
 TARGETS = {
-    "gnome": {
-        "profile": "Workstation-GNOME",
-        "name": f"Fedora Linux {RELEASE} Workstation (GNOME)",
-        "id": "gnome",
-    },
     "kde": {
         "profile": "Workstation-KDE",
         "name": f"Fedora Linux {RELEASE} KDE Plasma Desktop",
         "id": "kde",
+    },
+    "gnome": {
+        "profile": "Workstation-GNOME",
+        "name": f"Fedora Linux {RELEASE} Workstation (GNOME)",
+        "id": "gnome",
     },
     "server": {
         "profile": "Server",
