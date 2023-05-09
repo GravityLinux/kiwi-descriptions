@@ -26,12 +26,12 @@ if not RELEASE:
 TARGETS = {
     "gnome": {
         "profile": "Workstation-GNOME",
-        "name": f"Fedora Linux {RELEASE}",
+        "name": f"Fedora Linux {RELEASE} Workstation (GNOME)",
         "id": "gnome",
     },
     "kde": {
         "profile": "Workstation-KDE",
-        "name": f"Fedora Linux {RELEASE} with KDE",
+        "name": f"Fedora Linux {RELEASE} KDE Plasma Desktop",
         "id": "kde",
     },
     "server": {
@@ -116,11 +116,8 @@ def packageBuild(target):
     runCommand(["./make-asahi-installer-package.sh"])
     today = date.today().strftime("%Y%m%d")
 
-    if target["id"] == "gnome":
-        package = f"fedora-{RELEASE}-{today}.zip"
-    else:
-        package = f"fedora-{RELEASE}-{target['id']}-{today}.zip"
-        os.rename(f"fedora-{RELEASE}-{today}.zip", package)
+    package = f"fedora-{RELEASE}-{target['id']}-{today}.zip"
+    os.rename(f"fedora-{RELEASE}-{today}.zip", package)
     with open("installer_data.json", "r") as f:
         data = json.load(f)
 
@@ -152,10 +149,7 @@ def invalidateCF(path):
 
 def packageUpload(target):
     today = date.today().strftime("%Y%m%d")
-    if target["id"] == "gnome":
-        package = f"fedora-{RELEASE}-{today}.zip"
-    else:
-        package = f"fedora-{RELEASE}-{target['id']}-{today}.zip"
+    package = f"fedora-{RELEASE}-{target['id']}-{today}.zip"
 
     uploadToS3(package, f"os/{package}")
 
