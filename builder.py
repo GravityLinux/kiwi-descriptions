@@ -124,7 +124,7 @@ def packageBuild(target):
     with open("installer_data.json", "r") as f:
         data = json.load(f)
 
-    data["os_list"][0]["name"] = target["name"]
+    data["os_list"][0]["name"] = f"{target['name']} ({today})"
     data["os_list"][0]["default_os_name"] = target["name"]
     data["os_list"][0]["package"] = package
 
