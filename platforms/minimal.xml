@@ -6,7 +6,7 @@
 		</profile>
 	</profiles>
 	<preferences profiles="Minimal">
-		<type image="oem" filesystem="btrfs" kernelcmdline="scsi_mod.use_blk_mq=1 multipath=off" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="ext4" efipartsize="500" firmware="uefi" fsmountoptions="x-systemd.growfs,compress=zstd:1">
+		<type image="oem" filesystem="btrfs" kernelcmdline="" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="ext4" efipartsize="500" firmware="uefi" fsmountoptions="x-systemd.growfs,compress=zstd:1">
 			<bootloader name="grub2" console="console" timeout="5" timeout_style="hidden"/>
 			<systemdisk name="fedora">
 				<volume name="home"/>

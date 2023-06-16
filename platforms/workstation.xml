@@ -14,7 +14,7 @@
 		</profile>
 	</profiles>
 	<preferences profiles="WorkstationCommon">
-		<type image="oem" filesystem="btrfs" kernelcmdline="scsi_mod.use_blk_mq=1 multipath=off rhgb quiet" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="ext4" efipartsize="500" firmware="uefi" fsmountoptions="x-systemd.growfs,compress=zstd:1">
+		<type image="oem" filesystem="btrfs" kernelcmdline="rhgb quiet" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="ext4" efipartsize="500" firmware="uefi" fsmountoptions="x-systemd.growfs,compress=zstd:1">
 			<bootloader name="grub2" console="console" timeout="5" timeout_style="hidden"/>
 			<systemdisk name="fedora">
 				<volume name="home"/>
