@@ -94,12 +94,6 @@ rpm -qa --qf '%{size}\t%{name}-%{version}-%{release}.%{arch}\n' |sort -rn
 rm -f /var/lib/rpm/__db*
 
 #======================================
-# Force selinux relabel on firstboot
-#--------------------------------------
-# Workaround for https://github.com/OSInside/kiwi/issues/2192
-touch /.autorelabel
-
-#======================================
 # Generate boot.bin
 #======================================
 mkdir -p /boot/efi/m1n1
