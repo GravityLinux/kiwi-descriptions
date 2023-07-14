@@ -10,6 +10,7 @@ import sys
 import requests
 from datetime import date
 import shutil
+import xml.etree.ElementTree as ET
 
 
 def fail(message):
@@ -17,10 +18,14 @@ def fail(message):
     sys.exit(1)
 
 
-RELEASE = os.getenv("FEDORA_RELEASE")
+tree = ET.parse("config.xml")
+for e in tree.getroot().iter("release-version"):
+    RELEASE = e.text
+    break
+
 
 if not RELEASE:
-    fail("FEDORA_RELEASE is not defined in your environment, aborting")
+    fail("Could not parse release from config.xml")
 
 TODAY = date.today().strftime("%Y%m%d")
 
@@ -28,25 +33,25 @@ TODAY = date.today().strftime("%Y%m%d")
 TARGETS = {
     "kde": {
         "profile": "Workstation-KDE",
-        "name": f"Fedora Linux {RELEASE} with KDE Plasma ({TODAY})",
+        "name": f"Fedora Linux {RELEASE.capitalize()} with KDE Plasma ({TODAY})",
         "os_name": "Fedora Linux with KDE Plasma",
         "id": "kde",
     },
     "gnome": {
         "profile": "Workstation-GNOME",
-        "name": f"Fedora Linux {RELEASE} with GNOME ({TODAY})",
+        "name": f"Fedora Linux {RELEASE.capitalize()} with GNOME ({TODAY})",
         "os_name": "Fedora Linux with GNOME",
         "id": "gnome",
     },
     "server": {
         "profile": "Server",
-        "name": f"Fedora Linux {RELEASE} Server ({TODAY})",
+        "name": f"Fedora Linux {RELEASE.capitalize()} Server ({TODAY})",
         "os_name": "Fedora Linux Server",
         "id": "server",
     },
     "minimal": {
         "profile": "Minimal",
-        "name": f"Fedora Linux {RELEASE} Minimal ({TODAY})",
+        "name": f"Fedora Linux {RELEASE.capitalize()} Minimal ({TODAY})",
         "os_name": "Fedora Linux Minimal",
         "id": "minimal",
     },
