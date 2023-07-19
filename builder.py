@@ -4,6 +4,7 @@ import time
 import os
 import subprocess
 import boto3
+import io
 import json
 import click
 import sys
@@ -57,7 +58,7 @@ TARGETS = {
     },
 }
 
-MANIFEST_URI = os.getenv("MANIFEST_URI")
+MANIFEST = os.getenv("MANIFEST", "installer_data.json")
 S3_BUCKET = os.getenv("S3_BUCKET")
 
 
@@ -150,7 +151,12 @@ def packageUpload(target):
 
 
 def getManifest():
-    return requests.get(MANIFEST_URI).json()
+    s3 = boto3.resource("s3")
+    obj = s3.Object(S3_BUCKET, MANIFEST)
+    data = io.BytesIO()
+    obj.download_fileobj(data)
+
+    return json.loads(data.getvalue().decode("utf-8"))
 
 
 def manifestUpdate():
@@ -198,7 +204,7 @@ def upload(target):
 
     packageUpload(target)
     manifestUpdate()
-    uploadToS3("merged_installer_data.json", "installer_data.json")
+    uploadToS3("merged_installer_data.json", MANIFEST)
 
 
 @cli.command()
