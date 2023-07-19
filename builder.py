@@ -58,7 +58,6 @@ TARGETS = {
 }
 
 MANIFEST_URI = os.getenv("MANIFEST_URI")
-CF_DISTRIBUTION = os.getenv("CF_DISTRIBUTION")
 S3_BUCKET = os.getenv("S3_BUCKET")
 
 
@@ -144,19 +143,6 @@ def uploadToS3(source, destination):
     s3.upload_file(source, S3_BUCKET, destination)
 
 
-def invalidateCF(path):
-    cf = boto3.client("cloudfront")
-    res = cf.create_invalidation(
-        DistributionId=CF_DISTRIBUTION,
-        InvalidationBatch={
-            "Paths": {"Quantity": 1, "Items": [path]},
-            "CallerReference": str(time.time()).replace(".", ""),
-        },
-    )
-    invalidation_id = res["Invalidation"]["Id"]
-    return invalidation_id
-
-
 def packageUpload(target):
     package = f"fedora-{RELEASE}-{target['id']}-{TODAY}.zip"
 
@@ -213,14 +199,12 @@ def upload(target):
     packageUpload(target)
     manifestUpdate()
     uploadToS3("merged_installer_data.json", "installer_data.json")
-    invalidateCF("/installer_data.json")
 
 
 @cli.command()
 @click.option("--update/--no-update", default=False)
 @click.option("--upload/--no-upload", default=False)
-@click.option("--invalidate/--no-invalidate", default=False)
-def manifest(update, upload, invalidate):
+def manifest(update, upload):
     if update:
         manifestUpdate()
         manifest = "merged_installer_data.json"
@@ -230,9 +214,6 @@ def manifest(update, upload, invalidate):
         manifest = getManifest()
 
     click.echo(json.dumps(manifest, indent=2))
-
-    if invalidate:
-        invalidateCF("/installer_data.json")
 
 
 @cli.command()
