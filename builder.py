@@ -215,7 +215,7 @@ def manifest(update, upload):
         manifestUpdate()
         manifest = "merged_installer_data.json"
         if upload:
-            uploadToS3(manifest, "installer_data.json")
+            uploadToS3(manifest, MANIFEST)
     else:
         manifest = getManifest()
 
