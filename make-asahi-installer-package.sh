@@ -119,7 +119,7 @@ cp -p \
   outdir/kiwi.result.json \
   "${workdir}/logs/"
 pushd "${workdir}/logs" > /dev/null
-7z a -tzip -r "${basedir}/${package}-logs" .
+7z a -tzip -r "${basedir}/${package}.logs.zip" .
 popd > /dev/null
 
 # Package up the raw image

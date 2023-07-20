@@ -126,17 +126,31 @@ def packageBuild(target):
     # TODO: rewrite in python instead of shelling out
     runCommand(["./make-asahi-installer-package.sh"])
 
-    package = f"fedora-{RELEASE}-{target['id']}-{TODAY}.zip"
-    os.rename(f"fedora-{RELEASE}-{TODAY}.zip", package)
-    with open("installer_data.json", "r") as f:
+    base = f"fedora-{RELEASE}-{target['id']}-{TODAY}"
+    os.rename(f"fedora-{RELEASE}-{TODAY}.zip", f"{base}.zip")
+    os.rename(f"fedora-{RELEASE}-{TODAY}.logs.zip", f"{base}.logs.zip")
+    os.rename(f"fedora-{RELEASE}-{TODAY}.raw.zst", f"{base}.raw.zst")
+    os.rename(f"fedora-{RELEASE}-{TODAY}.json", f"{base}.json")
+    with open(f"{base}.json", "r") as f:
         data = json.load(f)
 
-    data["os_list"][0]["name"] = target["name"]
-    data["os_list"][0]["default_os_name"] = target["os_name"]
-    data["os_list"][0]["package"] = package
+    data["name"] = target["name"]
+    data["default_os_name"] = target["os_name"]
+    data["package"] = f"{base}.zip"
 
-    with open("installer_data.json", "w") as f:
+    with open(f"{base}.json", "w") as f:
         json.dump(data, f)
+
+    if os.path.exists("installer_data.json"):
+        with open("installer_data.json", "r") as f:
+            data = json.load(f)
+
+        data["os_list"][0]["name"] = target["name"]
+        data["os_list"][0]["default_os_name"] = target["os_name"]
+        data["os_list"][0]["package"] = f"{base}.zip"
+
+        with open("installer_data.json", "w") as f:
+            json.dump(data, f)
 
 
 def uploadToS3(source, destination):
@@ -147,8 +161,8 @@ def uploadToS3(source, destination):
 def packageUpload(target):
     base = f"fedora-{RELEASE}-{target['id']}-{TODAY}"
     package = f"{base}.zip"
-    logs_package = f"{base}-logs.zip"
-    image = f"{base}.raw.zstd"
+    logs_package = f"{base}.logs.zip"
+    image = f"{base}.raw.zst"
     manifest = f"{base}.json"
 
     uploadToS3(package, f"os/{package}")
@@ -202,9 +216,9 @@ def package(target):
 
 
 @cli.command()
-@click.argument("target")
 @click.option("--manifest/--no-manifest", default=True)
-def upload(target):
+@click.argument("target")
+def upload(manifest, target):
     if target not in TARGETS.keys():
         fail(f"Unknown target: {target}")
 
