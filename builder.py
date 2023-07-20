@@ -203,6 +203,7 @@ def package(target):
 
 @cli.command()
 @click.argument("target")
+@click.option("--manifest/--no-manifest", default=True)
 def upload(target):
     if target not in TARGETS.keys():
         fail(f"Unknown target: {target}")
@@ -210,8 +211,9 @@ def upload(target):
     target = TARGETS[target]
 
     packageUpload(target)
-    manifestUpdate()
-    uploadToS3("merged_installer_data.json", MANIFEST)
+    if manifest:
+        manifestUpdate()
+        uploadToS3("merged_installer_data.json", MANIFEST)
 
 
 @cli.command()
