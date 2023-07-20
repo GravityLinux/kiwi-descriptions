@@ -28,31 +28,37 @@ for e in tree.getroot().iter("release-version"):
 if not RELEASE:
     fail("Could not parse release from config.xml")
 
-TODAY = date.today().strftime("%Y%m%d")
+if os.path.exists("buildver"):
+    with open("buildver", "r") as f:
+        BUILDVER = f.read().strip()
+else:
+    BUILDVER = date.today().strftime("%Y%m%d%H%m")
+    with open("buildver", "w") as f:
+        f.write(BUILDVER)
 
 # TODO: should be a class using abc
 TARGETS = {
     "kde": {
         "profile": "Workstation-KDE",
-        "name": f"Fedora Linux {RELEASE.capitalize()} with KDE Plasma ({TODAY})",
+        "name": f"Fedora Linux {RELEASE.capitalize()} with KDE Plasma ({BUILDVER})",
         "os_name": "Fedora Linux with KDE Plasma",
         "id": "kde",
     },
     "gnome": {
         "profile": "Workstation-GNOME",
-        "name": f"Fedora Linux {RELEASE.capitalize()} with GNOME ({TODAY})",
+        "name": f"Fedora Linux {RELEASE.capitalize()} with GNOME ({BUILDVER})",
         "os_name": "Fedora Linux with GNOME",
         "id": "gnome",
     },
     "server": {
         "profile": "Server",
-        "name": f"Fedora Linux {RELEASE.capitalize()} Server ({TODAY})",
+        "name": f"Fedora Linux {RELEASE.capitalize()} Server ({BUILDVER})",
         "os_name": "Fedora Linux Server",
         "id": "server",
     },
     "minimal": {
         "profile": "Minimal",
-        "name": f"Fedora Linux {RELEASE.capitalize()} Minimal ({TODAY})",
+        "name": f"Fedora Linux {RELEASE.capitalize()} Minimal ({BUILDVER})",
         "os_name": "Fedora Linux Minimal",
         "id": "minimal",
     },
@@ -126,11 +132,11 @@ def packageBuild(target):
     # TODO: rewrite in python instead of shelling out
     runCommand(["./make-asahi-installer-package.sh"])
 
-    base = f"fedora-{RELEASE}-{target['id']}-{TODAY}"
-    os.rename(f"fedora-{RELEASE}-{TODAY}.zip", f"{base}.zip")
-    os.rename(f"fedora-{RELEASE}-{TODAY}.logs.zip", f"{base}.logs.zip")
-    os.rename(f"fedora-{RELEASE}-{TODAY}.raw.zst", f"{base}.raw.zst")
-    os.rename(f"fedora-{RELEASE}-{TODAY}.json", f"{base}.json")
+    base = f"fedora-{RELEASE}-{target['id']}-{BUILDVER}"
+    os.rename(f"fedora-{RELEASE}-{BUILDVER}.zip", f"{base}.zip")
+    os.rename(f"fedora-{RELEASE}-{BUILDVER}.logs.zip", f"{base}.logs.zip")
+    os.rename(f"fedora-{RELEASE}-{BUILDVER}.raw.zst", f"{base}.raw.zst")
+    os.rename(f"fedora-{RELEASE}-{BUILDVER}.json", f"{base}.json")
     with open(f"{base}.json", "r") as f:
         data = json.load(f)
 
@@ -154,12 +160,15 @@ def packageBuild(target):
 
 
 def uploadToS3(source, destination):
+    if S3_BUCKET is None:
+        fail("S3_BUCKET is not set")
+
     s3 = boto3.client("s3")
     s3.upload_file(source, S3_BUCKET, destination)
 
 
 def packageUpload(target):
-    base = f"fedora-{RELEASE}-{target['id']}-{TODAY}"
+    base = f"fedora-{RELEASE}-{target['id']}-{BUILDVER}"
     package = f"{base}.zip"
     logs_package = f"{base}.logs.zip"
     image = f"{base}.raw.zst"
@@ -172,6 +181,9 @@ def packageUpload(target):
 
 
 def getManifest():
+    if S3_BUCKET is None:
+        fail("S3_BUCKET is not set")
+
     s3 = boto3.resource("s3")
     obj = s3.Object(S3_BUCKET, MANIFEST)
     data = io.BytesIO()

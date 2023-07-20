@@ -5,3 +5,4 @@ merged_installer_data.json
 fedora-*.zip
 fedora-*.raw.zst
 fedora-*.json
+buildver

@@ -16,7 +16,11 @@ requireCommands() {
 }
 
 release='rawhide'
-date=$(date +%Y%m%d)
+if [ -f buildver ]; then
+  date="$(cat buildver)"
+else
+  date=$(date +%Y%m%d%H%m)
+fi
 image="${1:-outdir/Fedora-Asahi-Remix.aarch64-0.0.0.raw}"
 package="${2:-fedora-${release}-${date}}"
 
