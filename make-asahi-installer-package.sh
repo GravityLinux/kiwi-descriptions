@@ -105,3 +105,18 @@ cat > installer_data.json <<EOF
     ]
 }
 EOF
+
+# Package up the logs
+mkdir -p "${workdir}/logs"
+cp -p \
+  outdir/build/image-root.log \
+  outdir/Fedora-Asahi-Remix.aarch64-0.0.0.changes \
+  outdir/Fedora-Asahi-Remix.aarch64-0.0.0.packages \
+  outdir/kiwi.result.json \
+  "${workdir}/logs/"
+pushd "${workdir}/logs" > /dev/null
+7z a -tzip -r "${basedir}/${package}-logs" .
+popd > /dev/null
+
+# Package up the raw image
+zstd -c9 < "${image}" > "${basedir}/${package}.raw.zst"
