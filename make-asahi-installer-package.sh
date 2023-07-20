@@ -65,44 +65,48 @@ pushd "${workdir}/package" > /dev/null
 7z a -tzip -r "${basedir}/${package}" .
 popd > /dev/null
 
+cat > "${package}.json" <<EOF
+{
+    "name": "Fedora Linux ${pretty_release}",
+    "default_os_name": "Fedora Linux ${pretty_release}",
+    "boot_object": "m1n1.bin",
+    "next_object": "m1n1/boot.bin",
+    "package": "${package}.zip",
+    "icon": "fedora.icns",
+    "supported_fw": ["12.3", "12.3.1", "12.4"],
+    "partitions": [
+        {
+            "name": "EFI",
+            "type": "EFI",
+            "size": "${esp_size}B",
+            "format": "fat",
+            "volume_id": "${esp_volume_id}",
+            "copy_firmware": true,
+            "copy_installer_data": true,
+            "source": "esp"
+        },
+        {
+            "name": "Boot",
+            "type": "Linux",
+            "size": "${boot_size}B",
+            "image": "boot.img"
+        },
+        {
+            "name": "Root",
+            "type": "Linux",
+            "size": "${root_size}B",
+            "expand": true,
+            "image": "root.img"
+        }
+    ]
+}
+EOF
+
 cat > installer_data.json <<EOF
 {
     "os_list": [
-        {
-            "name": "Fedora Linux ${pretty_release}",
-            "default_os_name": "Fedora Linux ${pretty_release}",
-            "boot_object": "m1n1.bin",
-            "next_object": "m1n1/boot.bin",
-            "package": "${package}.zip",
-            "icon": "fedora.icns",
-            "supported_fw": ["12.3", "12.3.1", "12.4"],
-            "partitions": [
-                {
-                    "name": "EFI",
-                    "type": "EFI",
-                    "size": "${esp_size}B",
-                    "format": "fat",
-                    "volume_id": "${esp_volume_id}",
-                    "copy_firmware": true,
-                    "copy_installer_data": true,
-                    "source": "esp"
-                },
-                {
-                    "name": "Boot",
-                    "type": "Linux",
-                    "size": "${boot_size}B",
-                    "image": "boot.img"
-                },
-                {
-                    "name": "Root",
-                    "type": "Linux",
-                    "size": "${root_size}B",
-                    "expand": true,
-                    "image": "root.img"
-                }
-            ]
-        }
-    ]
+        $(cat "${package}.json")
+     ]
 }
 EOF
 

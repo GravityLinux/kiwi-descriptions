@@ -149,10 +149,12 @@ def packageUpload(target):
     package = f"{base}.zip"
     logs_package = f"{base}-logs.zip"
     image = f"{base}.raw.zstd"
+    manifest = f"{base}.json"
 
     uploadToS3(package, f"os/{package}")
     uploadToS3(logs_package, f"os/{logs_package}")
     uploadToS3(image, f"os/{image}")
+    uploadToS3(manifest, f"os/{manifest}")
 
 
 def getManifest():
