@@ -6,12 +6,12 @@
 		</profile>
 	</profiles>
 	<preferences profiles="Server">
-		<type image="oem" filesystem="btrfs" kernelcmdline="" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="xfs" efipartsize="500" firmware="uefi" fsmountoptions="x-systemd.growfs,compress=zstd:1">
+		<type image="oem" filesystem="btrfs" kernelcmdline="" target_blocksize="4096" bootpartition="true" bootpartsize="1000" bootfilesystem="xfs" efipartsize="500" firmware="uefi" btrfs_root_is_subvolume="true" btrfs_set_default_volume="false" rootfs_label="fedora" fsmountoptions="x-systemd.growfs,compress=zstd:1">
 			<bootloader name="grub2" console="console" timeout="5" timeout_style="hidden"/>
 			<systemdisk name="fedora">
-				<volume name="home"/>
-				<volume name="root"/>
-				<volume name="var"/>
+				<volume name="@root=root"/>
+				<volume name="home" parent="/"/>
+				<volume name="var" parent="/"/>
 			</systemdisk>
 			<oemconfig>
 				<oem-resize>false</oem-resize>
