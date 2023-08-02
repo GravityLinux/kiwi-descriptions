@@ -77,7 +77,7 @@ cat > "${package}.json" <<EOF
     "next_object": "m1n1/boot.bin",
     "package": "${package}.zip",
     "icon": "fedora.icns",
-    "supported_fw": ["12.3", "12.3.1", "12.4"],
+    "supported_fw": ["13.5", "12.3", "12.3.1", "12.4"],
     "partitions": [
         {
             "name": "EFI",
