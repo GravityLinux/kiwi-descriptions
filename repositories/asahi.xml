@@ -14,4 +14,14 @@
 			<signing key="https://download.copr.fedorainfracloud.org/results/@asahi/kernel/pubkey.gpg"/>
 		</source>
 	</repository>
+	<repository type="rpm-md" alias="copr_copr.fedorainfracloud.org_group_asahi_mesa" sourcetype="baseurl" priority="5">
+		<source path="https://download.copr.fedorainfracloud.org/results/@asahi/mesa/fedora-$releasever-$basearch/">
+			<signing key="https://download.copr.fedorainfracloud.org/results/@asahi/mesa/pubkey.gpg"/>
+		</source>
+	</repository>
+	<repository type="rpm-md" alias="fedora-asahi-remix-hotfixes" priority="1">
+		<source path="https://dcavalca.fedorapeople.org/fedora-asahi-remix-hotfixes/">
+			<signing key="file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-rawhide-primary"/>
+		</source>
+	</repository>
 </image>
