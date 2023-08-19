@@ -16,5 +16,6 @@
 		<!-- Asahi packages -->
 		<package name="alsa-ucm-asahi"/>
 		<package name="asahi-repos"/>
+		<package name="tiny-dfr"/>
 	</packages>
 </image>
