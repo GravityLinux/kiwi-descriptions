@@ -59,7 +59,7 @@ We also provide a script to generate an [Asahi Installer](https://github.com/Asa
 
 ```bash
 # Install prerequsites
-[]$ dnf --assumeyes install fatcat gawk util-linux zip
+[]$ dnf --assumeyes install fatcat gawk rpmdistro-repoquery util-linux zip
 # Build the package
 []$ ./make-asahi-installer-package.sh outdir/Fedora-Asahi-Remix.aarch64-0.0.0.raw package.zip
 ```

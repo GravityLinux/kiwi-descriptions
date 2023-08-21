@@ -15,6 +15,19 @@ requireCommands() {
   done
 }
 
+newlineToJson() {
+    first_item=true
+    printf '['
+    while IFS= read -r line; do
+        if [ "$first_item" = false ]; then
+            printf ', '
+        fi
+        printf '"%s"' "$line"
+        first_item=false
+    done
+    printf ']\n'
+}
+
 release='rawhide'
 if [ -f buildver ]; then
   date="$(cat buildver)"
@@ -69,6 +82,8 @@ pushd "${workdir}/package" > /dev/null
 7z a -tzip -r "${basedir}/${package}" .
 popd > /dev/null
 
+openh264_rpms=$(rpmdistro-repoquery fedora "$release" gstreamer1-plugin-openh264 mozilla-openh264 openh264 --location)
+
 cat > "${package}.json" <<EOF
 {
     "name": "Fedora Linux ${pretty_release}",
@@ -78,6 +93,7 @@ cat > "${package}.json" <<EOF
     "package": "${package}.zip",
     "icon": "fedora.icns",
     "supported_fw": ["13.5"],
+    "extras": $(printf '%s\n' "$openh264_rpms" | newlineToJson),
     "partitions": [
         {
             "name": "EFI",
