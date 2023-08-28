@@ -143,6 +143,10 @@ def packageBuild(target):
     data["name"] = target["name"]
     data["default_os_name"] = target["os_name"]
     data["package"] = f"{base}.zip"
+    # Clobber extras as we don't want them on headless builds and
+    # make-asahi-installer-package.sh doesn't have awareness of the target
+    if target["id"] == "server" or target["id"] == "minimal":
+        data["extras"] = {}
 
     with open(f"{base}.json", "w") as f:
         json.dump(data, f)
