@@ -67,6 +67,11 @@ mkdir -p "${workdir}/package/esp"
 mv "${workdir}/${imagename}2" "${workdir}/package/boot.img"
 mv "${workdir}/${imagename}3" "${workdir}/package/root.img"
 
+# fix up grub in the ESP
+# https://bugzilla.redhat.com/show_bug.cgi?id=2235692
+sed -i 's:source :configfile :' "${workdir}/package/esp/EFI/fedora/grub.cfg"
+rm "${workdir}/package/esp/EFI/BOOT/grubaa64.efi" "${workdir}/package/esp/EFI/BOOT/grub.cfg"
+
 esp_volume_id="$(file "${workdir}/${imagename}1" | awk -v 'RS=,' '/serial number/ { print $3 }')"
 esp_size="$(stat -c %s "${workdir}/${imagename}1")"
 boot_size="$(stat -c %s "${workdir}/package/boot.img")"
