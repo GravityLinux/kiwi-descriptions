@@ -35,6 +35,7 @@
 		<package name="fuse"/>
 		<package name="fedora-release-kde"/>
 		<package name="kde-l10n"/>
+		<package name="calamares-firstboot-config"/>
 		<ignore name="@admin-tools"/>
 		<ignore name="gnome-disk-utility"/>
 		<ignore name="system-config-printer"/>

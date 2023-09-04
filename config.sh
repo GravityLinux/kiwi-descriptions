@@ -67,10 +67,15 @@ mkdir -p /var/log/journal
 # Setup firstboot initial setup
 #--------------------------------------
 
-## Enable initial-setup
-systemctl enable initial-setup.service
-## Enable reconfig mode
-touch /etc/reconfigSys
+if [[ "$kiwi_profiles" == *"KDE"* ]]; then
+	## Enable calamares
+	systemctl enable calamares-firstboot.service
+else
+	## Enable initial-setup
+	systemctl enable initial-setup.service
+	## Enable reconfig mode
+	touch /etc/reconfigSys
+fi
 
 #======================================
 # Setup default target
