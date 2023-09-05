@@ -19,8 +19,8 @@
 		<namedCollection name="multimedia"/>
 		<namedCollection name="printing"/>
 		<package name="aajohan-comfortaa-fonts"/>
-		<package name="initial-setup-gui"/>
 		<package name="mediawriter"/>
+		<ignore name="xorg-x11-server-Xorg"/>
 		<ignore name="@dial-up"/>
 		<ignore name="@guest-desktop-agents"/>
 	</packages>
