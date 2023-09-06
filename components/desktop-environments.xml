@@ -11,7 +11,6 @@
 		</profile>
 	</profiles>
 	<packages type="image" patternType="plusRecommended" profiles="DesktopCommon">
-		<namedCollection name="base-x"/>
 		<namedCollection name="firefox"/>
 		<namedCollection name="fonts"/>
 		<namedCollection name="input-methods"/>
@@ -20,6 +19,9 @@
 		<namedCollection name="printing"/>
 		<package name="aajohan-comfortaa-fonts"/>
 		<package name="mediawriter"/>
+		<package name="mesa-dri-drivers"/>
+		<package name="mesa-vulkan-drivers"/>
+		<package name="plymouth-system-theme"/>
 		<ignore name="xorg-x11-server-Xorg"/>
 		<ignore name="@dial-up"/>
 		<ignore name="@guest-desktop-agents"/>
