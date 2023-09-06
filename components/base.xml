@@ -16,6 +16,7 @@
 		<!-- Asahi packages -->
 		<package name="alsa-ucm-asahi"/>
 		<package name="asahi-repos"/>
+		<package name="fedora-asahi-remix-scripts"/>
 		<package name="tiny-dfr"/>
 	</packages>
 </image>

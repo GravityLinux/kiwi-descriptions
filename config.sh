@@ -77,6 +77,10 @@ else
 	touch /etc/reconfigSys
 fi
 
+## Enable extras install on firstboot; this will only run if the extras are
+## actually present (and self disable afterwards)
+systemctl enable asahi-extras-firstboot.service
+
 #======================================
 # Setup default target
 #--------------------------------------
