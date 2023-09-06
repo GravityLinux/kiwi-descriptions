@@ -22,9 +22,11 @@
 		<package name="mesa-dri-drivers"/>
 		<package name="mesa-vulkan-drivers"/>
 		<package name="plymouth-system-theme"/>
-		<ignore name="xorg-x11-server-Xorg"/>
 		<ignore name="@dial-up"/>
 		<ignore name="@guest-desktop-agents"/>
+	</packages>
+	<packages type="uninstall" profiles="DesktopCommon">
+		<package name="xorg-x11-server-Xorg"/>
 	</packages>
 	<packages type="image" patternType="plusRecommended" profiles="GNOME-Desktop">
 		<namedCollection name="workstation-product-environment"/>
