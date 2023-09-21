@@ -11,6 +11,7 @@
 		<package name="dracut-config-generic"/>
 		<package name="initial-setup"/>
 		<package name="glibc-all-langpacks"/>
+		<ignore name="dracut-config-rescue"/>
 		<ignore name="generic-release*"/>
 		<ignore name="generic-logos*"/>
 		<!-- Asahi packages -->
