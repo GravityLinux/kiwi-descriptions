@@ -15,6 +15,7 @@
 		<ignore name="generic-logos*"/>
 		<!-- Asahi packages -->
 		<package name="alsa-ucm-asahi"/>
+		<package name="asahi-platform-metapackage"/>
 		<package name="asahi-repos"/>
 		<package name="fedora-asahi-remix-scripts"/>
 		<package name="tiny-dfr"/>
