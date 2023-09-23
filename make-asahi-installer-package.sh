@@ -28,7 +28,7 @@ newlineToJson() {
     printf ']\n'
 }
 
-release='rawhide'
+release="$(awk -F'[<>]' '/release-version/ { print $3 }' config.xml)"
 if [ -f buildver ]; then
   date="$(cat buildver)"
 else
