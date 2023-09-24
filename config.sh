@@ -72,7 +72,7 @@ mkdir -p /var/log/journal
 if [[ "$kiwi_profiles" == *"KDE"* ]]; then
 	## Enable calamares
 	systemctl enable calamares-firstboot.service
-else
+elif [[ "$kiwi_profiles" != *"GNOME"* ]] && [[ "$kiwi_profiles" != *"KDE"* ]]; then
 	## Enable initial-setup
 	systemctl enable initial-setup.service
 	## Enable reconfig mode
