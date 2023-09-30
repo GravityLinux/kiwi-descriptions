@@ -23,8 +23,6 @@ echo "allow_vendor_change=False" >> /etc/dnf/dnf.conf
 #--------------------------------------
 ## Fixes KDE Plasma, see rhbz#2058657
 setsebool -P selinuxuser_execmod 1
-## Create /etc/X11/xorg.conf.d, see rhbz#2240159
-mkdir -p /etc/X11/xorg.conf.d
 
 #======================================
 # Clear machine specific configuration
