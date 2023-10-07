@@ -89,6 +89,11 @@ popd > /dev/null
 
 openh264_rpms=$(rpmdistro-repoquery fedora "$release" gstreamer1-plugin-openh264 mozilla-openh264 openh264 --location)
 
+if [ -e "${openh264_rpms}"]; then
+  extras="{}"
+else
+  extras="$(printf '%s\n' "${openh264_rpms}" | newlineToJson)"
+
 cat > "${package}.json" <<EOF
 {
     "name": "Fedora Linux ${pretty_release}",
@@ -98,7 +103,7 @@ cat > "${package}.json" <<EOF
     "package": "${package}.zip",
     "icon": "fedora.icns",
     "supported_fw": ["13.5"],
-    "extras": $(printf '%s\n' "$openh264_rpms" | newlineToJson),
+    "extras": ${extras},
     "partitions": [
         {
             "name": "EFI",
