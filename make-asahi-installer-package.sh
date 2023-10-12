@@ -93,6 +93,7 @@ if [ -e "${openh264_rpms}"]; then
   extras="{}"
 else
   extras="$(printf '%s\n' "${openh264_rpms}" | newlineToJson)"
+fi
 
 cat > "${package}.json" <<EOF
 {
