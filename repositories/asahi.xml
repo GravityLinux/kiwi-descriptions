@@ -26,7 +26,7 @@
 	</repository>
 	<repository type="rpm-md" alias="fedora-asahi-remix-hotfixes" priority="1">
 		<source path="https://fedora-asahi-remix.org/repos/hotfixes/$releasever/">
-			<signing key="file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-rawhide-primary"/>
+			<signing key="file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-$releasever-primary"/>
 		</source>
 	</repository>
 </image>
