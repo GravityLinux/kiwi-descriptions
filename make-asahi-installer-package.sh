@@ -103,7 +103,7 @@ cat > "${package}.json" <<EOF
     "next_object": "m1n1/boot.bin",
     "package": "${package}.zip",
     "icon": "fedora.icns",
-    "supported_fw": ["13.5"],
+    "supported_fw": ["12.3", "12.4", "13.5"],
     "extras": ${extras},
     "partitions": [
         {
