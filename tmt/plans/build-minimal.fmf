@@ -1,0 +1,14 @@
+summary: Build Minimal image
+discover:
+    how: shell
+    tests:
+      - name: build image
+        test: |
+          dnf --assumeyes install fatcat git-core kiwi distribution-gpg-keys p7zip-plugins python3-boto3 zip zstd libselinux-utils
+          setenforce 0
+          $TMT_TREE/builder.py build minimal
+          $TMT_TREE/builder.py package minimal
+          setenforce 1
+
+execute:
+    how: tmt
