@@ -8,6 +8,7 @@ discover:
           setenforce 0
           $TMT_TREE/builder.py build gnome
           $TMT_TREE/builder.py package gnome
+          $TMT_TREE/builder.py tmt gnome
           setenforce 1
 
 execute:

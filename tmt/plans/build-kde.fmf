@@ -8,6 +8,7 @@ discover:
           setenforce 0
           $TMT_TREE/builder.py build kde
           $TMT_TREE/builder.py package kde
+          $TMT_TREE/builder.py tmt kde
           setenforce 1
 
 execute:

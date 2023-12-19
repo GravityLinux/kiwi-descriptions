@@ -188,6 +188,23 @@ def packageUpload(target):
     uploadToS3(manifest, f"os/{manifest}")
 
 
+def tmtCopy(target):
+    base = f"fedora-{RELEASE}-{target['id']}-{BUILDVER}"
+    package = f"{base}.zip"
+    logs_package = f"{base}.logs.zip"
+    image = f"{base}.raw.zst"
+    manifest = f"{base}.json"
+
+    artifacts = os.getenv("TMT_PLAN_DATA")
+    if not os.path.exists(artifacts):
+        os.mkdir(artifacts)
+
+    shutil.copyfile(package, f"{artifacts}/{package}")
+    shutil.copyfile(logs_package, f"{artifacts}/{logs_package}")
+    shutil.copyfile(image, f"{artifacts}/{image}")
+    shutil.copyfile(manifest, f"{artifacts}/{manifest}")
+
+
 def getManifest():
     if S3_BUCKET is None:
         fail("S3_BUCKET is not set")
@@ -248,6 +265,17 @@ def upload(manifest, target):
     if manifest:
         manifestUpdate()
         uploadToS3("merged_installer_data.json", MANIFEST)
+
+
+@cli.command()
+@click.argument("target")
+def tmt(target):
+    if target not in TARGETS.keys():
+        fail(f"Unknown target: {target}")
+
+    target = TARGETS[target]
+
+    tmtCopy(target)
 
 
 @cli.command()

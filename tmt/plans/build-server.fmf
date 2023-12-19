@@ -8,6 +8,7 @@ discover:
           setenforce 0
           $TMT_TREE/builder.py build server
           $TMT_TREE/builder.py package server
+          $TMT_TREE/builder.py tmt server
           setenforce 1
 
 execute:

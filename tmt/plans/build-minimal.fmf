@@ -8,6 +8,7 @@ discover:
           setenforce 0
           $TMT_TREE/builder.py build minimal
           $TMT_TREE/builder.py package minimal
+          $TMT_TREE/builder.py tmt minimal
           setenforce 1
 
 execute:
