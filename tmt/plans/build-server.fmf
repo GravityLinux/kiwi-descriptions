@@ -1,10 +1,23 @@
 summary: Build Server image
+prepare:
+  - name: install packages
+    how: install
+    package:
+      - distribution-gpg-keys
+      - fatcat
+      - git-core
+      - kiwi
+      - libselinux-utils
+      - p7zip-plugins
+      - python3-boto3
+      - rpmdistro-repoquery
+      - zip
+      - zstd
 discover:
     how: shell
     tests:
       - name: build image
         test: |
-          dnf --assumeyes install fatcat git-core kiwi distribution-gpg-keys p7zip-plugins python3-boto3 zip zstd libselinux-utils rpmdistro-repoquery
           setenforce 0
           $TMT_TREE/builder.py build server
           $TMT_TREE/builder.py package server
