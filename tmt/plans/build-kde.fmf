@@ -1,28 +1,7 @@
 summary: Build KDE image
-prepare:
-  - name: install packages
-    how: install
-    package:
-      - distribution-gpg-keys
-      - fatcat
-      - git-core
-      - kiwi
-      - libselinux-utils
-      - p7zip-plugins
-      - python3-boto3
-      - rpmdistro-repoquery
-      - zip
-      - zstd
 discover:
-    how: shell
-    tests:
-      - name: build image
-        test: |
-          setenforce 0
-          $TMT_TREE/builder.py build kde
-          $TMT_TREE/builder.py package kde
-          $TMT_TREE/builder.py tmt kde
-          setenforce 1
-
+    how: fmf
+environment:
+    image_variant: kde
 execute:
     how: tmt

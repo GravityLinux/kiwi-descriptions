@@ -1,0 +1,21 @@
+summary: Build image
+require:
+  - distribution-gpg-keys
+  - fatcat
+  - git-core
+  - kiwi
+  - libselinux-utils
+  - p7zip-plugins
+  - python3-boto3
+  - rpmdistro-repoquery
+  - zip
+  - zstd
+framework: shell
+path: /
+test: |
+  setenforce 0
+  ./builder.py build $image_variant
+  ./builder.py package $image_variant
+  ./builder.py tmt $image_variant
+  setenforce 1
+duration: 60m
