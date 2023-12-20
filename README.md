@@ -68,6 +68,9 @@ We also provide a script to generate an [Asahi Installer](https://github.com/Asa
 
 Please default to submitting PRs against the `rawhide` branch. Release branches should generally merge from `rawhide` and only deviate where absolutely necessary.
 
+This project is tested using the [Software Factory Zuul CI instance](https://fedora.softwarefactory-project.io/zuul/project/pagure.io/fedora-asahi/kiwi-descriptions)
+using the [Test Management Tool](https://tmt.readthedocs.io/).
+
 ## Licensing
 
 This is free software: you can redistribute it and/or modify
