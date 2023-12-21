@@ -195,7 +195,7 @@ def tmtCopy(target):
     image = f"{base}.raw.zst"
     manifest = f"{base}.json"
 
-    artifacts = os.getenv("TMT_PLAN_DATA")
+    artifacts = os.getenv("TMT_TEST_DATA")
     if not os.path.exists(artifacts):
         os.mkdir(artifacts)
 
