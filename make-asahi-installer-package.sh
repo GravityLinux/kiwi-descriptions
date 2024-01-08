@@ -89,7 +89,7 @@ popd > /dev/null
 
 openh264_rpms=$(rpmdistro-repoquery fedora "$release" gstreamer1-plugin-openh264 mozilla-openh264 openh264 --location)
 
-if [ -e "${openh264_rpms}"]; then
+if [ -e "${openh264_rpms}" ]; then
   extras="{}"
 else
   extras="$(printf '%s\n' "${openh264_rpms}" | newlineToJson)"
