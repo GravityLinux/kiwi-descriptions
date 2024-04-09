@@ -28,16 +28,20 @@
 	<packages type="uninstall" profiles="DesktopCommon">
 		<package name="xorg-x11-server-Xorg"/>
 	</packages>
+	<packages type="bootstrap" patternType="plusRecommended" profiles="GNOME-Desktop">
+		<package name="fedora-release-workstation"/>
+	</packages>
 	<packages type="image" patternType="plusRecommended" profiles="GNOME-Desktop">
 		<namedCollection name="workstation-product-environment"/>
-		<package name="fedora-release-workstation"/>
+	</packages>
+	<packages type="bootstrap" patternType="plusRecommended" profiles="KDE-Desktop">
+		<package name="fedora-release-kde"/>
 	</packages>
 	<packages type="image" patternType="plusRecommended" profiles="KDE-Desktop">
 		<namedCollection name="kde-desktop-environment"/>
 		<namedCollection name="kde-apps"/>
 		<namedCollection name="kde-media"/>
 		<package name="fuse"/>
-		<package name="fedora-release-kde"/>
 		<package name="kde-l10n"/>
 		<package name="calamares-firstboot-config"/>
 		<ignore name="@admin-tools"/>

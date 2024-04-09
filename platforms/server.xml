@@ -18,9 +18,11 @@
 			</oemconfig>
 		</type>
 	</preferences>
+	<packages type="bootstrap" patternType="plusRecommended" profiles="Server">
+		<package name="fedora-release-server"/>
+	</packages>
 	<packages type="image" patternType="plusRecommended" profiles="Server">
 		<namedCollection name="container-management"/>
 		<namedCollection name="server-product-environment"/>
-		<package name="fedora-release-server"/>
 	</packages>
 </image>
