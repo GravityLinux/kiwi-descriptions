@@ -54,12 +54,6 @@ passwd -l root
 # Setup default services
 #--------------------------------------
 
-## Enable chrony
-systemctl enable sshd.service
-## Enable NetworkManager
-systemctl enable NetworkManager.service
-## Enable chrony
-systemctl enable chronyd.service
 ## Enable persistent journal
 mkdir -p /var/log/journal
 
