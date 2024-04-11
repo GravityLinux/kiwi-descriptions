@@ -4,6 +4,7 @@ require:
   - fatcat
   - git-core
   - kiwi
+  - kiwi-systemdeps-disk-images
   - libselinux-utils
   - p7zip-plugins
   - python3-boto3
