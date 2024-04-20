@@ -24,9 +24,7 @@
 		<package name="plymouth-system-theme"/>
 		<ignore name="@dial-up"/>
 		<ignore name="@guest-desktop-agents"/>
-	</packages>
-	<packages type="uninstall" profiles="DesktopCommon">
-		<package name="xorg-x11-server-Xorg"/>
+		<ignore name="xorg-x11-server-Xorg"/>
 	</packages>
 	<packages type="bootstrap" patternType="plusRecommended" profiles="GNOME-Desktop">
 		<package name="fedora-release-workstation"/>
