@@ -87,12 +87,16 @@ pushd "${workdir}/package" > /dev/null
 7z a -tzip -r "${basedir}/${package}" .
 popd > /dev/null
 
-openh264_rpms=$(rpmdistro-repoquery fedora "$release" gstreamer1-plugin-openh264 mozilla-openh264 openh264 --location)
+openh264_rpms="mozilla-openh264 openh264"
+if [ "$release" != rawhide -a $release -le 39 ]; then
+  openh264_rpms="gstreamer1-plugin-openh264 ${openh264_rpms}"
+fi
+openh264_urls=$(rpmdistro-repoquery fedora "$release" ${openh264_rpms} --location)
 
-if [ -e "${openh264_rpms}" ]; then
+if [ -e "${openh264_urls}" ]; then
   extras="{}"
 else
-  extras="$(printf '%s\n' "${openh264_rpms}" | newlineToJson)"
+  extras="$(printf '%s\n' "${openh264_urls}" | newlineToJson)"
 fi
 
 cat > "${package}.json" <<EOF
@@ -103,7 +107,7 @@ cat > "${package}.json" <<EOF
     "next_object": "m1n1/boot.bin",
     "package": "${package}.zip",
     "icon": "fedora.icns",
-    "supported_fw": ["12.3", "12.4", "13.5"],
+    "supported_fw": ["12.3", "12.3.1", "13.5"],
     "extras": ${extras},
     "partitions": [
         {
