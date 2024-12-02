@@ -93,7 +93,7 @@ if [ "$release" != rawhide -a $release -le 39 ]; then
 fi
 openh264_urls=$(rpmdistro-repoquery fedora "$release" ${openh264_rpms} --location)
 
-if [ -e "${openh264_urls}" ]; then
+if [ -z "${openh264_urls}" ]; then
   extras="{}"
 else
   extras="$(printf '%s\n' "${openh264_urls}" | newlineToJson)"
