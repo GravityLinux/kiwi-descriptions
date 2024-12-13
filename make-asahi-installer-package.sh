@@ -47,7 +47,7 @@ if [ -e "$package" ]; then
   fail "$package already exists, aborting"
 fi
 
-requireCommands 7z awk cat cp dd fdisk file mkdir mv stat wget
+requireCommands 7z awk cat cp dd fdisk file mkdir mv stat curl
 
 workdir="$(mktemp -dp /var/tmp)"
 trap 'rm -rf "$workdir"' EXIT
@@ -79,7 +79,7 @@ root_size="$(stat -c %s "${workdir}/package/root.img")"
 
 # boot picker icon
 if [ ! -f fedora.icns ]; then
-  wget https://pagure.io/fedora-logos/blob/master/f/bootloader/fedora.icns
+  curl -LO https://pagure.io/fedora-logos/blob/master/f/bootloader/fedora.icns
 fi
 cp -p fedora.icns "${workdir}/package"
 
