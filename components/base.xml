@@ -13,6 +13,8 @@
 		<ignore name="dracut-config-rescue"/>
 		<ignore name="generic-release*"/>
 		<ignore name="generic-logos*"/>
+		<!-- pulled in as Recommends: via toolbox -> podman -> containers-common-extra -->
+		<ignore name="qemu-user-static"/>
 		<!-- Asahi packages -->
 		<package name="alsa-ucm-asahi"/>
 		<package name="asahi-platform-metapackage"/>
