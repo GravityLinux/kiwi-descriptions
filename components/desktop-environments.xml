@@ -25,6 +25,8 @@
 		<ignore name="@dial-up"/>
 		<ignore name="@guest-desktop-agents"/>
 		<ignore name="xorg-x11-server-Xorg"/>
+		<!-- ignore until rhbz#2332429 is resolved -->
+		<ignore name="OpenCL-ICD-Loader"/>
 	</packages>
 	<packages type="bootstrap" patternType="plusRecommended" profiles="GNOME-Desktop">
 		<package name="fedora-release-workstation"/>
