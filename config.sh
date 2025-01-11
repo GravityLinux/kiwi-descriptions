@@ -43,6 +43,9 @@ echo "GRUB_DEFAULT=saved" >> /etc/default/grub
 echo "GRUB_DISABLE_SUBMENU=true" >> /etc/default/grub
 ## Disable recovery entries to match Fedora
 echo "GRUB_DISABLE_RECOVERY=true" >> /etc/default/grub
+## Disable OS prober. OS selection on apple silicon systems has to go through
+## the native startup disk selection
+echo "GRUB_DISABLE_OS_PROBER=true" >> /etc/default/grub
 
 #======================================
 # Delete & lock the root user password
