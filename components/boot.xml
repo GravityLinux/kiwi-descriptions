@@ -16,7 +16,7 @@
 		<package name="systemd-oomd-defaults"/>
 		<package name="systemd-resolved"/>
 		<!-- Asahi packages -->
-		<package name="asahi-fwextract" arch="aarch64"/>
+		<package name="asahi-fwupdate" arch="aarch64"/>
 		<package name="dracut-asahi" arch="aarch64"/>
 		<package name="update-m1n1" arch="aarch64"/>
 	</packages>
