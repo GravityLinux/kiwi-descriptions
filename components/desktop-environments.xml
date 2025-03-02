@@ -17,6 +17,7 @@
 		<namedCollection name="libreoffice"/>
 		<namedCollection name="multimedia"/>
 		<namedCollection name="printing"/>
+		<namedCollection name="x86-emulation"/>
 		<package name="aajohan-comfortaa-fonts"/>
 		<package name="mediawriter"/>
 		<package name="mesa-dri-drivers"/>
@@ -41,6 +42,7 @@
 		<namedCollection name="kde-desktop-environment"/>
 		<namedCollection name="kde-apps"/>
 		<namedCollection name="kde-media"/>
+		<namedCollection name="kde-pim"/>
 		<package name="fuse"/>
 		<package name="kde-l10n"/>
 		<package name="calamares-firstboot-config"/>
