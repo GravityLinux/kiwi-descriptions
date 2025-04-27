@@ -44,6 +44,12 @@ echo "GRUB_DISABLE_RECOVERY=true" >> /etc/default/grub
 ## the native startup disk selection
 echo "GRUB_DISABLE_OS_PROBER=true" >> /etc/default/grub
 
+if [[ "$kiwi_profiles" == *"-Desktop"* ]]; then
+	## Enable menu_auto_hide to match Fedora anaconda installs
+	## Set boot_success to avoid displaying the grub menu on first boot
+	grub2-editenv /boot/grub2/grubenv set menu_auto_hide=1 boot_success=1
+fi
+
 #======================================
 # Delete & lock the root user password
 #--------------------------------------
