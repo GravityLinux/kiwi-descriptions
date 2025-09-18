@@ -43,8 +43,8 @@ $ sudo podman run --privileged --rm -it -v $PWD:/code:z -w /code registry.fedora
 Once in the container environment, set up your development environment and run the image build (substitute `<image_type>` and `<image_profile>` for the appropriate settings):
 
 ```bash
-# Install kiwi
-[]$ dnf --assumeyes install kiwi
+# Install kiwi and qemu-img
+[]$ dnf --assumeyes install kiwi qemu-img
 # Run the image build
 []$ kiwi-ng --type=<image_type> --profile=<image_profile> --color-output system build --description ./ --target-dir ./outdir
 ```
