@@ -13,7 +13,7 @@
 		<keytable>us</keytable>
 		<timezone>UTC</timezone>
 		<rpm-check-signatures>true</rpm-check-signatures>
-		<release-version>rawhide</release-version>
+		<release-version>44</release-version>
 	</preferences>
 	<include from="this://./repositories/core.xml"/>
 	<include from="this://./repositories/asahi.xml"/>
