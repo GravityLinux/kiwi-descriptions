@@ -37,7 +37,7 @@ $ sudo podman pull registry.fedoraproject.org/fedora:42-aarch64
 Assuming you're in the root directory of the Git checkout, set up the container:
 
 ```bash
-$ sudo podman run --privileged --rm -it -v $PWD:/code:z -w /code registry.fedoraproject.org/fedora:21-aarch64 /bin/bash
+$ sudo podman run --privileged --rm -it -v $PWD:/code:z -w /code registry.fedoraproject.org/fedora:42-aarch64 /bin/bash
 ```
 
 Once in the container environment, set up your development environment and run the image build (substitute `<image_type>` and `<image_profile>` for the appropriate settings):
