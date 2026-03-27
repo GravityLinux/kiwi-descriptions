@@ -24,5 +24,6 @@
 	<packages type="image" patternType="plusRecommended" profiles="Server">
 		<namedCollection name="container-management"/>
 		<namedCollection name="server-product-environment"/>
+		<package name="initial-setup"/>
 	</packages>
 </image>

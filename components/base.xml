@@ -8,7 +8,6 @@
 		<namedCollection name="hardware-support"/>
 		<package name="NetworkManager-wifi"/>
 		<package name="chrony"/>
-		<package name="initial-setup"/>
 		<package name="glibc-all-langpacks"/>
 		<ignore name="dracut-config-rescue"/>
 		<ignore name="generic-release*"/>

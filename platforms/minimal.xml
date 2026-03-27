@@ -19,5 +19,6 @@
 	</preferences>
 	<packages type="image" patternType="plusRecommended" profiles="Minimal">
 		<package name="fedora-release"/>
+		<package name="initial-setup"/>
 	</packages>
 </image>

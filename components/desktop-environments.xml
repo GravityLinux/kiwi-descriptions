@@ -45,8 +45,8 @@
 		<namedCollection name="kde-pim"/>
 		<package name="fuse"/>
 		<package name="kde-l10n"/>
-		<package name="calamares-firstboot-config"/>
 		<ignore name="@admin-tools"/>
+		<ignore name="initial-setup"/> <!-- redundant with plasma-setup -->
 		<ignore name="gnome-disk-utility"/>
 		<ignore name="system-config-printer"/>
 	</packages>
