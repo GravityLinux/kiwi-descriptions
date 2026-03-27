@@ -98,6 +98,12 @@ rpm -qa --qf '%{size}\t%{name}-%{version}-%{release}.%{arch}\n' |sort -rn
 rm -f /var/lib/rpm/__db*
 
 #======================================
+# Override `DEFAULTKERNEL` in /etc/sysconfig/kernel
+# The file is now owned by grubby
+#======================================
+sed -i 's:\(DEFAULTKERNEL=\)kernel-core:\1kernel-16k-core:' /etc/sysconfig/kernel
+
+#======================================
 # Generate boot.bin
 #======================================
 update-m1n1 /boot/efi/m1n1/boot.bin
