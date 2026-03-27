@@ -14,11 +14,6 @@ test -f /.profile && . /.profile
 echo "Configure image: [$kiwi_iname]-[$kiwi_profiles]..."
 
 #======================================
-# Turn on sticky vendors
-#--------------------------------------
-echo "allow_vendor_change=False" >> /etc/dnf/dnf.conf
-
-#======================================
 # Set SELinux booleans
 #--------------------------------------
 ## Fixes KDE Plasma, see rhbz#2058657
