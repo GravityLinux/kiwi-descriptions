@@ -1,0 +1,13 @@
+<image>
+  <repository type="rpm-md" alias="gravity" sourcetype="baseurl" priority="1" profiles="Workstation-KDE">
+    <source path="https://download.copr.fedorainfracloud.org/results/adevwithanidea/gravity/fedora-44-aarch64/">
+      <signing key="file:///usr/share/gravity-image-builder/RPM-GPG-KEY-gravity"/>
+    </source>
+  </repository>
+  <!-- COPR manual publishing is enabled. Test builds consume its staging repo. -->
+  <repository type="rpm-md" alias="gravity-test" sourcetype="baseurl" priority="1" profiles="Workstation-KDE-Test">
+    <source path="https://download.copr.fedorainfracloud.org/results/adevwithanidea/gravity/fedora-44-aarch64-devel/">
+      <signing key="file:///usr/share/gravity-image-builder/RPM-GPG-KEY-gravity"/>
+    </source>
+  </repository>
+</image>

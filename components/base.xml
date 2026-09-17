@@ -22,11 +22,12 @@
 		<ignore name="iwlwifi-mvm-firmware"/>
 		<ignore name="nvidia-gpu-firmware"/>
 		<ignore name="qcom-firmware"/>
-		<!-- Asahi packages -->
+		<!-- Retain upstream hardware integration; audio is profile-specific. -->
 		<package name="alsa-ucm-asahi"/>
-		<package name="asahi-platform-metapackage"/>
-		<package name="asahi-repos"/>
-		<package name="fedora-asahi-remix-scripts"/>
+		<package name="gravity-repos"/>
+		<package name="gravity-remix-scripts"/>
+		<package name="gravity-appstream-metadata"/>
+		<package name="gravity-logos"/>
 		<package name="tiny-dfr"/>
 	</packages>
 </image>

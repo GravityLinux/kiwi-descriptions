@@ -1,87 +1,73 @@
-# Fedora Asahi Remix KIWI descriptions
+# Gravity Linux KIWI descriptions
 
-This contains the KIWI descriptions for building the Fedora Asahi Remix.
+Fedora 44 / AArch64 / KDE recipe for the T8132 M4 Mac mini (j773g).
+Based on Fedora Asahi's f44 branch at
+`960ea8dc8fb33952a874bb4da94a07a055bb11ab`; original history is preserved.
 
-This repository has multiple branches, one for each supported Fedora release. The default branch is `rawhide`, and is probably _not_ what you want.
+## Profiles
 
-## Spin variants
+- `Workstation-KDE-Test`: temporary hardware bring-up image. Omits the umbrella
+  and audio metapackages, installs their non-audio integration subpackages, and
+  blocks snd_soc_macaudio and snd_soc_apple_mca in modprobe and initramfs.
+  Speakersafetyd is masked. Internal audio is deliberately unavailable.
+- `Workstation-KDE`: eventual release profile, retaining the full Gravity platform
+  metapackage and its downstream speakersafetyd requirement. Not release-ready.
 
-* Minimal (image type: `oem`, image profiles: `Minimal`)
-* Server (image type: `oem`, image profiles: `Server`)
-* Workstation GNOME (image type: `oem`, image profiles: `Workstation-GNOME`)
-* Workstation KDE (image type: `oem`, image profiles: `Workstation-KDE`)
+The test profile uses COPR's fedora-44-aarch64-devel staging repository because
+manual publication is enabled and the public repository is currently empty.
+The installed test system also uses staging. Never distribute this profile as
+a final release. The release profile uses the published repository.
 
-## Spin build quickstart
+Both profiles retain Fedora's base and updates repositories, RPM signature
+checking, and the checked-in Gravity COPR signing key. No Asahi COPRs are used
+by the active recipe. Hardware ABI names, apple_m1, m1n1/boot.bin, and Fedora's
+GRUB/ESP paths are deliberately retained.
 
-### Pre-requisites for non-AArch64 hosts
+## Build inside the temporary Fedora AArch64 QEMU VM
 
-On non-AArch64 hosts, install `qemu-user-static` and restart the binfmt service:
+Transfer this checkout into the VM, then run there:
 
-```bash
-$ sudo dnf --assumeyes install qemu-user-static
-$ sudo systemctl restart systemd-binfmt.service
+```sh
+sudo dnf install kiwi qemu-img git distribution-gpg-keys
+sudo ./build-image.sh Workstation-KDE-Test
 ```
 
-Note that building non-aarch64 is untested and likely to expose bugs.
+The wrapper installs the pinned signing key and refuses an existing output
+directory. Use a fresh second argument for each subsequent attempt.
+Expected output: Gravity-Linux.aarch64-0.0.0.raw below the output directory.
+Never pass host block devices as build targets.
 
-### Podman
+Validate the XML/profile selection without building:
 
-The instructions below will use the `podman` command. Only Podman is supported for this workflow.
-
-First, pull down the container of the required environment (Fedora Linux 36 or higher works). We'll use Fedora Linux 42.
-
-```bash
-$ sudo podman pull registry.fedoraproject.org/fedora:42-aarch64
+```sh
+kiwi-ng --profile=Workstation-KDE-Test image info --description . --print-xml
 ```
 
-Assuming you're in the root directory of the Git checkout, set up the container:
+Resolve packages before a build (after installing the key as the wrapper does):
 
-```bash
-$ sudo podman run --privileged --rm -it -v $PWD:/code:z -w /code registry.fedoraproject.org/fedora:42-aarch64 /bin/bash
+```sh
+sudo kiwi-ng --profile=Workstation-KDE-Test image info --description . --resolve-package-list
 ```
 
-Once in the container environment, set up your development environment and run the image build (substitute `<image_type>` and `<image_profile>` for the appropriate settings):
+Successful XML validation is not a completed dependency transaction or image
+build. Kernel, Mesa, U-Boot, and the bootloader must be Gravity builds; config.sh
+fails if a stock package was substituted or the M4 DTB is missing. The image
+configuration assembles stage 2 via update-m1n1 on the ESP. Stage 1 remains a
+separate installer-bundle asset. No builder login credentials are added to images.
 
-```bash
-# Install kiwi and qemu-img
-[]$ dnf --assumeyes install kiwi qemu-img
-# Run the image build
-[]$ kiwi-ng --type=<image_type> --profile=<image_profile> --color-output system build --description ./ --target-dir ./outdir
-```
+## Remaining release work
 
-For example, to build the --profile=Workstation-GNOME profile:
+- Complete COPR builds, resolve dependencies, build the raw image, and test it.
+- Adapt the inherited installer ZIP/metadata exporter for Gravity artwork,
+  macOS 26.6.2, immutable artifact URLs/checksums, and j773gap-only support.
+  **Do not use builder.py or make-asahi-installer-package.sh yet**: they retain
+  upstream naming, firmware metadata, and publishing behavior.
+- Validate speaker support and stop using the temporary test profile for release.
+- Publish the signed COPR repository before building the final release profile.
 
-```bash
-[]$ kiwi-ng --debug --type=oem --profile=Workstation-GNOME --color-output system build --description ./ --target-dir ./outdir
-```
+Inactive upstream GNOME/Server/Minimal fragments and CI scripts are retained
+for reference, but are not supported by the Gravity build wrapper.
 
-We also provide a script to generate an [Asahi Installer](https://github.com/AsahiLinux/asahi-installer) package from the raw image that kiwi produces:
+## License
 
-```bash
-# Install prerequsites
-[]$ dnf --assumeyes install fatcat gawk p7zip-plugins rpmdistro-repoquery util-linux zip zstd
-# Build the package
-[]$ ./make-asahi-installer-package.sh outdir/Fedora-Asahi-Remix.aarch64-0.0.0.raw package.zip
-```
-
-## Contributing
-
-Please default to submitting PRs against the `rawhide` branch. Release branches should generally merge from `rawhide` and only deviate where absolutely necessary.
-
-This project is tested using the [Software Factory Zuul CI instance](https://fedora.softwarefactory-project.io/zuul/project/pagure.io/fedora-asahi/kiwi-descriptions)
-using the [Test Management Tool](https://tmt.readthedocs.io/).
-
-## Licensing
-
-This is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, under version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
+GPL-3.0-or-later; see COPYING. Upstream attribution and history are preserved.

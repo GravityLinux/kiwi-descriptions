@@ -1,8 +1,12 @@
 outdir/
+outdir-*/
+buildver
+*.raw
+*.raw.zst
+*.qcow2
+*.zip
+__pycache__/
 fedora.icns
 installer_data.json
 merged_installer_data.json
-fedora-*.zip
-fedora-*.raw.zst
 fedora-*.json
-buildver

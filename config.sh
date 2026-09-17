@@ -70,11 +70,11 @@ if [[ "$kiwi_profiles" != *"GNOME"* ]] && [[ "$kiwi_profiles" != *"KDE"* ]]; the
 fi
 
 ## Enable swap setup on firstboot
-systemctl enable asahi-setup-swap-firstboot.service
+systemctl enable gravity-setup-swap-firstboot.service
 
 ## Enable extras install on firstboot; this will only run if the extras are
 ## actually present (and self disable afterwards)
-systemctl enable asahi-extras-firstboot.service
+systemctl enable gravity-extras-firstboot.service
 
 #======================================
 # Setup default target
@@ -91,6 +91,7 @@ fi
 
 releasever=$(rpm --eval '%{fedora}')
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-primary
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-gravity
 echo "Packages within this disk image"
 rpm -qa --qf '%{size}\t%{name}-%{version}-%{release}.%{arch}\n' |sort -rn
 
@@ -106,7 +107,31 @@ sed -i 's:\(DEFAULTKERNEL=\)kernel-core:\1kernel-16k-core:' /etc/sysconfig/kerne
 #======================================
 # Generate boot.bin
 #======================================
+# Fail closed if a stock package silently satisfied a Gravity dependency.
+for package in kernel-16k-core mesa-dri-drivers mesa-vulkan-drivers gravity-bootloader uboot-images-armv8; do
+    [[ "$(rpm -q --qf '%{RELEASE}' "$package")" == *gravity* ]]
+done
+test -s /boot/dtb/apple/t8132-j773g.dtb
+
+if [[ "$kiwi_profiles" == *"Workstation-KDE-Test"* ]]; then
+    # Do not expose internal speakers without the downstream safety stack.
+    install -Dm644 /usr/share/gravity-image-test/no-internal-audio.conf /etc/modprobe.d/gravity-test-no-internal-audio.conf
+    install -Dm644 /usr/share/gravity-image-test/dracut-no-internal-audio.conf /etc/dracut.conf.d/gravity-test-no-internal-audio.conf
+    systemctl mask speakersafetyd.service
+    for forbidden in gravity-platform-metapackage gravity-platform-metapackage-audio asahi-audio speakersafetyd; do
+        if rpm -q "$forbidden"; then
+            echo "Unexpected audio dependency in test image: $forbidden" >&2
+            exit 1
+        fi
+    done
+    touch /etc/gravity-hardware-test-image
+    # Keep this explicitly non-release image on the same staging repository.
+    sed -i 's|/fedora-\$releasever-\$basearch/|/fedora-$releasever-$basearch-devel/|' /etc/yum.repos.d/gravity.repo
+    # Rebuild after installing the initramfs driver exclusion.
+    dracut --force --regenerate-all
+fi
 update-m1n1 /boot/efi/m1n1/boot.bin
+test -s /boot/efi/m1n1/boot.bin
 rm /boot/efi/.builder
 
 exit 0

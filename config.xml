@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<image schemaversion="7.4" name="Fedora-Asahi-Remix" displayname="Fedora Linux Asahi Remix">
+<image schemaversion="7.4" name="Gravity-Linux" displayname="Gravity Linux">
 	<description type="system">
-		<author>Neal Gompa</author>
-		<contact>ngompa@fedoraproject.org</contact>
-		<specification>Fedora Asahi Remix</specification>
+		<author>Gravity Linux contributors; based on Neal Gompa's Fedora Asahi recipe</author>
+		<contact>https://github.com/GravityLinux</contact>
+		<specification>Gravity Linux Fedora 44 KDE for the M4 Mac mini</specification>
 	</description>
 	<preferences>
 		<version>0.0.0</version>
@@ -16,13 +16,10 @@
 		<release-version>44</release-version>
 	</preferences>
 	<include from="this://./repositories/core.xml"/>
-	<include from="this://./repositories/asahi.xml"/>
+	<include from="this://./repositories/gravity.xml"/>
 	<include from="this://./components/boot.xml"/>
 	<include from="this://./components/base.xml"/>
 	<include from="this://./components/desktop-environments.xml"/>
-	<include from="this://./components/users.xml"/>
-	<include from="this://./platforms/minimal.xml"/>
-	<include from="this://./platforms/server.xml"/>
 	<include from="this://./platforms/workstation.xml"/>
 	<packages type="bootstrap">
 		<package name="basesystem"/>

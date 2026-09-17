@@ -3,9 +3,6 @@
 		<profile name="DesktopCommon" description="Common desktop packages">
 			<requires profile="Common"/>
 		</profile>
-		<profile name="GNOME-Desktop" description="GNOME Desktop">
-			<requires profile="DesktopCommon"/>
-		</profile>
 		<profile name="KDE-Desktop" description="KDE Plasma Desktop">
 			<requires profile="DesktopCommon"/>
 		</profile>
@@ -27,14 +24,9 @@
 		<ignore name="@guest-desktop-agents"/>
 		<ignore name="xorg-x11-server-Xorg"/>
 	</packages>
-	<packages type="bootstrap" patternType="plusRecommended" profiles="GNOME-Desktop">
-		<package name="fedora-release-workstation"/>
-	</packages>
-	<packages type="image" patternType="plusRecommended" profiles="GNOME-Desktop">
-		<namedCollection name="workstation-product-environment"/>
-	</packages>
 	<packages type="bootstrap" patternType="plusRecommended" profiles="KDE-Desktop">
-		<package name="fedora-release-kde"/>
+		<package name="gravity-release-kde"/>
+		<package name="gravity-release-identity-kde"/>
 	</packages>
 	<packages type="image" patternType="plusRecommended" profiles="KDE-Desktop">
 		<namedCollection name="kde-desktop-environment"/>
