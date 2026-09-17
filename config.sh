@@ -127,8 +127,9 @@ if [[ "$kiwi_profiles" == *"Workstation-KDE-Test"* ]]; then
     touch /etc/gravity-hardware-test-image
     # Keep this explicitly non-release image on the same staging repository.
     sed -i 's|/fedora-\$releasever-\$basearch/|/fedora-$releasever-$basearch-devel/|' /etc/yum.repos.d/gravity.repo
-    # Rebuild after installing the initramfs driver exclusion.
-    dracut --force --regenerate-all
+    # Rebuild after installing the initramfs driver exclusion. The builder is
+    # not the target Mac: host-only detection would reject gravity-firmware.
+    dracut --force --regenerate-all --no-hostonly
 fi
 update-m1n1 /boot/efi/m1n1/boot.bin
 test -s /boot/efi/m1n1/boot.bin

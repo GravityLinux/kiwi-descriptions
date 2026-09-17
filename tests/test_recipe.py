@@ -36,7 +36,7 @@ class RecipeTests(unittest.TestCase):
         self.assertIn('speakersafetyd', names('Workstation-KDE-Test', 'ignore'))
         config = (ROOT / 'config.sh').read_text()
         self.assertIn('systemctl mask speakersafetyd.service', config)
-        self.assertIn('dracut --force --regenerate-all', config)
+        self.assertIn('dracut --force --regenerate-all --no-hostonly', config)
         self.assertIn('t8132-j773g.dtb', config)
 
 
