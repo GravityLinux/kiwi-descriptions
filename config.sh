@@ -1,6 +1,9 @@
 #!/bin/bash
 
 set -euxo pipefail
+umask 022
+# KIWI preserves overlay directory modes, which Git does not track.
+python3 /usr/share/gravity-image-test/image-permissions.py --repair
 
 #======================================
 # Functions...

@@ -1,4 +1,8 @@
 #!/bin/bash
+set -euo pipefail
+umask 022
+# Fail closed before copying the tree into the disk image.
+python3 /usr/share/gravity-image-test/image-permissions.py
 
 # Remove kiwi leftovers we don't need
 # https://github.com/OSInside/kiwi/issues/2343#issuecomment-1663427508
