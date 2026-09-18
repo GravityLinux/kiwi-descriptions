@@ -24,6 +24,9 @@ def validate(root, repair=False):
     errors = []
     for relative, expected in MODES.items():
         path = root / relative
+        # KIWI consumes and removes this build-time hook during creation.
+        if relative == 'etc/fstab.script' and not path.exists() and not path.is_symlink():
+            continue
         # Reject symlinks in both the target and its ancestors before chmod.
         for component in [path, *path.parents]:
             if component == root:

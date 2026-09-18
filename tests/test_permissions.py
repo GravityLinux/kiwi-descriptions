@@ -28,6 +28,8 @@ class PermissionTests(unittest.TestCase):
                 permissions.validate(root)
             permissions.validate(root, repair=True)
             permissions.validate(root)
+            (root / 'etc/fstab.script').unlink()
+            permissions.validate(root)
             self.assertEqual(private.stat().st_mode & 0o777, 0o600)
             (root / 'usr').chmod(0o700)
             with self.assertRaises(ValueError):
