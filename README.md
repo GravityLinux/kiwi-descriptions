@@ -6,12 +6,17 @@ Based on Fedora Asahi's f44 branch at
 
 ## Profiles
 
-- `Workstation-KDE-Test`: temporary hardware bring-up image. Omits the umbrella
-  and audio metapackages, installs their non-audio integration subpackages, and
-  blocks snd_soc_macaudio and snd_soc_apple_mca in modprobe and initramfs.
-  Speakersafetyd is masked. Internal audio is deliberately unavailable.
-- `Workstation-KDE`: eventual release profile, retaining the full Gravity platform
-  metapackage and its downstream speakersafetyd requirement. Not release-ready.
+- `Workstation-KDE-Test`: temporary hardware bring-up image using staging RPMs.
+- `Workstation-KDE`: eventual release profile using published RPMs. Not release-ready.
+
+Both profiles use the kernel-protected J773g speaker driver with PipeWire and
+WirePlumber. They select platform subpackages directly to avoid the umbrella's
+remaining legacy `asahi-audio` dependency, and exclude the old DSP/daemon stack.
+`alsa-ucm-asahi` remains available for other ALSA devices; no legacy speaker DSP
+is enabled. The recipe requires built-in J773g protection, TAS2764 and Apple MCA
+in every installed 16K kernel config. It removes the previous recipe's explicit
+audio blacklist and daemon mask, then regenerates portable initramfs images.
+This configuration enables testing; it is not hardware audio validation.
 
 The test profile uses COPR's fedora-44-aarch64-devel staging repository because
 manual publication is enabled and the public repository is currently empty.

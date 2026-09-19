@@ -116,23 +116,38 @@ for package in kernel-16k-core mesa-dri-drivers mesa-vulkan-drivers gravity-boot
 done
 test -s /boot/dtb/apple/t8132-j773g.dtb
 
-if [[ "$kiwi_profiles" == *"Workstation-KDE-Test"* ]]; then
-    # Do not expose internal speakers without the downstream safety stack.
-    install -Dm644 /usr/share/gravity-image-test/no-internal-audio.conf /etc/modprobe.d/gravity-test-no-internal-audio.conf
-    install -Dm644 /usr/share/gravity-image-test/dracut-no-internal-audio.conf /etc/dracut.conf.d/gravity-test-no-internal-audio.conf
-    systemctl mask speakersafetyd.service
-    for forbidden in gravity-platform-metapackage gravity-platform-metapackage-audio asahi-audio speakersafetyd; do
+# Both M4 profiles use protected kernel audio, not the legacy userspace DSP.
+if [[ "$kiwi_profiles" == *"Workstation-KDE"* ]]; then
+    shopt -s nullglob
+    audio_configs=(/boot/config-*16k*)
+    (( ${#audio_configs[@]} > 0 ))
+    for audio_config in "${audio_configs[@]}"; do
+        grep -qx 'CONFIG_SND_SOC_APPLE_T8132_SPEAKER=y' "$audio_config"
+        grep -qx 'CONFIG_SND_SOC_TAS2764=y' "$audio_config"
+        grep -qx 'CONFIG_SND_SOC_APPLE_MCA=y' "$audio_config"
+    done
+    shopt -u nullglob
+    for forbidden in gravity-platform-metapackage gravity-platform-metapackage-audio asahi-audio speakersafetyd gravity-speakersafetyd; do
         if rpm -q "$forbidden"; then
-            echo "Unexpected audio dependency in test image: $forbidden" >&2
+            echo "Unexpected legacy audio dependency in M4 image: $forbidden" >&2
             exit 1
         fi
     done
+    # Remove only the obsolete files created by earlier versions of this recipe.
+    rm -f /etc/modprobe.d/gravity-test-no-internal-audio.conf
+    rm -f /etc/dracut.conf.d/gravity-test-no-internal-audio.conf
+    if [[ -L /etc/systemd/system/speakersafetyd.service ]] && \
+       [[ $(readlink /etc/systemd/system/speakersafetyd.service) == /dev/null ]]; then
+        rm /etc/systemd/system/speakersafetyd.service
+    fi
+    # Purge the old initramfs blacklist; this builder is not the target Mac.
+    dracut --force --regenerate-all --no-hostonly
+fi
+
+if [[ "$kiwi_profiles" == *"Workstation-KDE-Test"* ]]; then
     touch /etc/gravity-hardware-test-image
     # Keep this explicitly non-release image on the same staging repository.
     sed -i 's|/fedora-\$releasever-\$basearch/|/fedora-$releasever-$basearch-devel/|' /etc/yum.repos.d/gravity.repo
-    # Rebuild after installing the initramfs driver exclusion. The builder is
-    # not the target Mac: host-only detection would reject gravity-firmware.
-    dracut --force --regenerate-all --no-hostonly
 fi
 update-m1n1 /boot/efi/m1n1/boot.bin
 test -s /boot/efi/m1n1/boot.bin

@@ -8,7 +8,7 @@
 			<requires profile="WorkstationCommon"/>
 			<requires profile="KDE-Desktop"/>
 		</profile>
-		<profile name="Workstation-KDE-Test" description="M4 hardware test only; internal speaker audio disabled">
+		<profile name="Workstation-KDE-Test" description="M4 hardware test with kernel-protected speaker audio">
 			<requires profile="WorkstationCommon"/>
 			<requires profile="KDE-Desktop"/>
 		</profile>
@@ -25,20 +25,22 @@
 			</oemconfig>
 		</type>
 	</preferences>
-	<packages type="image" profiles="Workstation-KDE">
-		<package name="gravity-platform-metapackage"/>
-	</packages>
-	<packages type="image" profiles="Workstation-KDE-Test">
-		<!-- Avoid the umbrella's hard audio dependency, without weakening release RPMs. -->
+	<packages type="image" profiles="WorkstationCommon">
+		<!-- The umbrella still pulls legacy Asahi DSP. J773g uses kernel protection. -->
 		<package name="gravity-platform-metapackage-core"/>
 		<package name="gravity-platform-metapackage-desktop"/>
 		<package name="gravity-platform-metapackage-plasma"/>
 		<package name="gravity-platform-metapackage-mesa"/>
 		<package name="gravity-platform-metapackage-fex"/>
+		<package name="pipewire"/>
+		<package name="pipewire-alsa"/>
+		<package name="pipewire-pulseaudio"/>
+		<package name="wireplumber"/>
 		<ignore name="gravity-platform-metapackage"/>
 		<ignore name="gravity-platform-metapackage-audio"/>
 		<ignore name="asahi-platform-metapackage*"/>
 		<ignore name="asahi-audio"/>
 		<ignore name="speakersafetyd"/>
+		<ignore name="gravity-speakersafetyd"/>
 	</packages>
 </image>
