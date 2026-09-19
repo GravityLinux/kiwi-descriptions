@@ -7,6 +7,22 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class RecipeTests(unittest.TestCase):
+    def test_no_obsolete_publishers_or_repository_endpoints(self):
+        for name in ('builder.py', 'make-asahi-installer-package.sh', 'repositories/asahi.xml', '.zuul.yaml'):
+            self.assertFalse((ROOT / name).exists(), name)
+        for directory in ('repositories', 'components', 'platforms'):
+            for path in (ROOT / directory).glob('*.xml'):
+                contents = path.read_text()
+                self.assertNotIn('results/@asahi/', contents)
+                self.assertNotIn('fedora-asahi-remix.org', contents)
+                self.assertNotIn('Fedora-Asahi-Remix', contents)
+        config = ET.parse(ROOT / 'config.xml').getroot()
+        self.assertEqual(config.attrib['name'], 'Gravity-Linux')
+        self.assertEqual(config.attrib['displayname'], 'Gravity Linux')
+        for path in ROOT.rglob('*'):
+            if path.is_file() and '.git' not in path.parts and path.suffix in ('.pem', '.key'):
+                self.fail(f'Unexpected key material: {path}')
+
     def test_active_includes_and_repositories(self):
         def load(path):
             tree = ET.parse(path).getroot()

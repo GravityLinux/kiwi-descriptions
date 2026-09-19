@@ -1,8 +1,7 @@
 # Gravity Linux KIWI descriptions
 
 Fedora 44 / AArch64 / KDE recipe for the T8132 M4 Mac mini (j773g).
-Based on Fedora Asahi's f44 branch at
-`960ea8dc8fb33952a874bb4da94a07a055bb11ab`; original history is preserved.
+See NOTICE for source attribution and COPYING for the license.
 
 ## Profiles
 
@@ -24,7 +23,7 @@ The installed test system also uses staging. Never distribute this profile as
 a final release. The release profile uses the published repository.
 
 Both profiles retain Fedora's base and updates repositories, RPM signature
-checking, and the checked-in Gravity COPR signing key. No Asahi COPRs are used
+checking, and the checked-in Gravity COPR signing key. No upstream hardware COPRs are used
 by the active recipe. Hardware ABI names, apple_m1, m1n1/boot.bin, and Fedora's
 GRUB/ESP paths are deliberately retained.
 
@@ -63,15 +62,30 @@ separate installer-bundle asset. No builder login credentials are added to image
 ## Remaining release work
 
 - Complete COPR builds, resolve dependencies, build the raw image, and test it.
-- Adapt the inherited installer ZIP/metadata exporter for Gravity artwork,
-  macOS 26.6.2, immutable artifact URLs/checksums, and j773gap-only support.
-  **Do not use builder.py or make-asahi-installer-package.sh yet**: they retain
-  upstream naming, firmware metadata, and publishing behavior.
+- Package the raw image using the separate installer-data tooling, with Gravity
+  artwork, macOS 26.6.2, immutable artifact URLs/checksums, and j773gap-only
+  support. This repository does not upload images or installer metadata.
 - Validate speaker support and stop using the temporary test profile for release.
 - Publish the signed COPR repository before building the final release profile.
 
-Inactive upstream GNOME/Server/Minimal fragments and CI scripts are retained
-for reference, but are not supported by the Gravity build wrapper.
+Only the two KDE profiles above are supported. Obsolete exporters, cloud-user
+templates, alternate variants and upstream publishing/CI configuration have
+been removed; they remain recoverable from Git history.
+
+## Checks before publishing
+
+Run `bash check.sh` for local recipe, permission and branding checks. Validate
+both profiles with KIWI in Fedora as described above. These checks do not
+replace dependency resolution, image creation or hardware testing.
+
+The checked-in key is the public COPR signing key, not a private key. Keep
+images, RPMs, test credentials and TLS private keys outside this repository.
+
+Remaining upstream names are intentional: `alsa-ucm-asahi` is an installed
+Fedora dependency, and legacy audio/platform package names occur in exclusion
+guards. `m1n1`, `apple_m1`, Apple device-tree names and the Fedora EFI path are
+compatibility identifiers, not Gravity branding. Do not mechanically rename
+them without changing their providers. Attribution in NOTICE is preserved.
 
 ## License
 

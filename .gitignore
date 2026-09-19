@@ -6,7 +6,10 @@ buildver
 *.qcow2
 *.zip
 __pycache__/
-fedora.icns
+gravity.icns
 installer_data.json
 merged_installer_data.json
-fedora-*.json
+gravity-*.json
+root-*/
+*.rpm
+*.log

@@ -26,7 +26,7 @@
 		</type>
 	</preferences>
 	<packages type="image" profiles="WorkstationCommon">
-		<!-- The umbrella still pulls legacy Asahi DSP. J773g uses kernel protection. -->
+		<!-- The umbrella still pulls legacy DSP. J773g uses kernel protection. -->
 		<package name="gravity-platform-metapackage-core"/>
 		<package name="gravity-platform-metapackage-desktop"/>
 		<package name="gravity-platform-metapackage-plasma"/>

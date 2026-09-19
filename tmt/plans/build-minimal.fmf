@@ -1,7 +1,0 @@
-summary: Build Minimal image
-discover:
-    how: fmf
-environment:
-    image_variant: minimal
-execute:
-    how: tmt

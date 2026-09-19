@@ -1,7 +1,0 @@
-summary: Build GNOME image
-discover:
-    how: fmf
-environment:
-    image_variant: gnome
-execute:
-    how: tmt

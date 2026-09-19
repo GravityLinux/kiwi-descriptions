@@ -1,7 +1,0 @@
-summary: Build Server image
-discover:
-    how: fmf
-environment:
-    image_variant: server
-execute:
-    how: tmt

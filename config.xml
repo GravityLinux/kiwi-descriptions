@@ -2,7 +2,7 @@
 
 <image schemaversion="7.4" name="Gravity-Linux" displayname="Gravity Linux">
 	<description type="system">
-		<author>Gravity Linux contributors; based on Neal Gompa's Fedora Asahi recipe</author>
+		<author>Gravity Linux contributors</author>
 		<contact>https://github.com/GravityLinux</contact>
 		<specification>Gravity Linux Fedora 44 KDE for the M4 Mac mini</specification>
 	</description>

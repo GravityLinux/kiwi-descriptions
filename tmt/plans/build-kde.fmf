@@ -1,7 +1,0 @@
-summary: Build KDE image
-discover:
-    how: fmf
-environment:
-    image_variant: kde
-execute:
-    how: tmt
