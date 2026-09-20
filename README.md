@@ -74,6 +74,21 @@ been removed; they remain recoverable from Git history.
 
 ## Checks before publishing
 
+`edit_boot_install.sh` runs after KIWI's final bootloader installation, mounts
+the supplied ext4 boot partition, and recreates `/grub2/grubenv` with the real
+`grub2-editenv`. It preserves existing settings but removes the stale Btrfs
+`env_block` pointer. It checks the filesystem type and replacement contents;
+SELinux attributes are preserved. Do not move this into `config.sh` or
+`pre_disk_sync.sh`, where `/boot` is still on the build filesystem.
+
+The installer-data packaging tools also check the environment inside `boot.img`
+and reject a raw-block pointer. They require this sibling checkout and `debugfs`
+from e2fsprogs. The check alone can be run without mounting or modifying the image:
+
+```sh
+python3 root/usr/share/gravity-image-test/grub-environment.py --check-image /path/to/boot.img
+```
+
 Run `bash check.sh` for local recipe, permission and branding checks. Validate
 both profiles with KIWI in Fedora as described above. These checks do not
 replace dependency resolution, image creation or hardware testing.

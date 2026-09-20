@@ -15,6 +15,7 @@ MODES = {
     'usr/share/gravity-image-test': 0o755,
     'etc/fstab.script': 0o755,
     'usr/share/gravity-image-test/image-permissions.py': 0o644,
+    'usr/share/gravity-image-test/grub-environment.py': 0o644,
 }
 
 
