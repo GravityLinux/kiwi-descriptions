@@ -7,6 +7,17 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class RecipeTests(unittest.TestCase):
+    def test_m4_boot_arguments(self):
+        tree = ET.parse(ROOT / 'platforms/workstation.xml').getroot()
+        image_type = tree.find("preferences[@profiles='WorkstationCommon']/type")
+        args = image_type.attrib['kernelcmdline'].split()
+        for arg in ('rhgb', 'quiet', 'nohlt', 'idle=nop', 'arm64.nowfxt',
+                    'appledrm.hdmi_audio=1'):
+            self.assertEqual(args.count(arg), 1, arg)
+        for name in ('Workstation-KDE', 'Workstation-KDE-Test'):
+            profile = tree.find(f"profiles/profile[@name='{name}']")
+            self.assertIsNotNone(profile.find("requires[@profile='WorkstationCommon']"))
+
     def test_no_obsolete_publishers_or_repository_endpoints(self):
         for name in ('builder.py', 'make-asahi-installer-package.sh', 'repositories/asahi.xml', '.zuul.yaml'):
             self.assertFalse((ROOT / name).exists(), name)
