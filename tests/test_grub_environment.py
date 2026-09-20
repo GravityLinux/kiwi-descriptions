@@ -2,6 +2,7 @@ import importlib.util
 from pathlib import Path
 import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 from unittest.mock import patch
 
 SCRIPT = Path(__file__).resolve().parents[1] / 'root/usr/share/gravity-image-test/grub-environment.py'
@@ -66,5 +67,12 @@ class EnvironmentTests(unittest.TestCase):
 
     def test_hook_is_post_install(self):
         root = SCRIPT.parents[4]
-        self.assertIn('grub-environment.py', (root / 'edit_boot_install.sh').read_text())
+        tree = ET.parse(root / 'platforms/workstation.xml').getroot()
+        image_type = tree.find("preferences[@profiles='WorkstationCommon']/type")
+        self.assertEqual(image_type.attrib['image'], 'oem')
+        self.assertEqual(image_type.attrib.get('editbootinstall'), 'edit_boot_install.sh')
+        for name in ('Workstation-KDE', 'Workstation-KDE-Test'):
+            profile = tree.find(f"profiles/profile[@name='{name}']")
+            self.assertIsNotNone(profile.find("requires[@profile='WorkstationCommon']"))
+        self.assertIn('grub-environment.py', (root / image_type.attrib['editbootinstall']).read_text())
         self.assertNotIn('grub-environment.py', (root / 'config.sh').read_text())
