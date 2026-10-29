@@ -1,12 +1,41 @@
 # Gravity Linux KIWI descriptions
 
-Fedora 44 / AArch64 / KDE recipe for the T8132 M4 Mac mini (j773g).
+Fedora 44 / AArch64 workstation recipes for Gravity Linux on Apple Silicon.
 See NOTICE for source attribution and COPYING for the license.
 
 ## Profiles
 
 - `Workstation-KDE-Test`: temporary hardware bring-up image using staging RPMs.
 - `Workstation-KDE`: eventual release profile using published RPMs. Not release-ready.
+- `Workstation-Sway-Experimental`: Sway with stable and experimental Gravity RPMs.
+
+The Sway profile uses Fedora's Sway configuration, SDDM Wayland greeter and
+Initial Setup, plus a terminal, browser and portals. It uses the generic Gravity
+release identity; it does not require a new KDE or Sway release RPM. Plasma-specific
+packages belong to `KDE-Desktop`, not the shared workstation profile.
+
+To build the experimental Sway image after its RPMs have been published:
+
+```sh
+sudo ./build-image.sh Workstation-Sway-Experimental /path/to/fresh-sway-experimental-output
+```
+
+Build `gravity-repos-experimental/gravity-repos-experimental.spec` from the
+`packages:experimental` branch in COPR first. That small RPM keeps the experimental
+repository enabled after installation alongside stable, both at priority 10.
+The builder repositories also have equal priority; newer RPM versions win.
+The wrapper fetches the experimental project's signing key. That key must exist
+before building (COPR currently returns 404 for the empty project's key URL).
+
+Use a separate installer ZIP filename containing `sway-experimental` and a unique
+timestamp. The default raw filename is shared across profiles, but each build
+uses its own fresh output directory. Publishing an experimental installer entry
+and validating hardware boot remain separate steps.
+
+Desktop packages, boot layout and repository channels are separate profiles.
+GNOME, UEFI-only and tethered boot are future additions; they are not exposed as
+working profiles yet. The experimental Sway profile still uses the existing
+UEFI/GRUB installation layout and required M4 boot arguments/audio checks.
 
 Both profiles use the kernel-protected J773g speaker driver with PipeWire and
 WirePlumber. They select platform subpackages directly to avoid the umbrella's
@@ -68,7 +97,7 @@ separate installer-bundle asset. No builder login credentials are added to image
 - Validate speaker support and stop using the temporary test profile for release.
 - Publish the signed COPR repository before building the final release profile.
 
-Only the two KDE profiles above are supported. Obsolete exporters, cloud-user
+Only the three workstation profiles above are defined. Obsolete exporters, cloud-user
 templates, alternate variants and upstream publishing/CI configuration have
 been removed; they remain recoverable from Git history.
 

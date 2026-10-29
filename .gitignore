@@ -13,3 +13,4 @@ gravity-*.json
 root-*/
 *.rpm
 *.log
+root/usr/share/gravity-image-builder/RPM-GPG-KEY-gravity-experimental

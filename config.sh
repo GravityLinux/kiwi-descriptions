@@ -82,10 +82,13 @@ systemctl enable gravity-extras-firstboot.service
 #======================================
 # Setup default target
 #--------------------------------------
-if [[ "$kiwi_profiles" == *"GNOME"* ]] || [[ "$kiwi_profiles" == *"KDE"* ]]; then
+if [[ "$kiwi_profiles" == *"GNOME"* ]] || [[ "$kiwi_profiles" == *"KDE"* ]] || [[ "$kiwi_profiles" == *"Sway"* ]]; then
 	systemctl set-default graphical.target
 else
 	systemctl set-default multi-user.target
+fi
+if [[ "$kiwi_profiles" == *"Sway"* ]]; then
+    systemctl enable sddm.service
 fi
 
 #======================================
@@ -95,6 +98,10 @@ fi
 releasever=$(rpm --eval '%{fedora}')
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-primary
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-gravity
+if [[ "$kiwi_profiles" == *"Experimental"* ]]; then
+    rpm --import /usr/share/gravity-image-builder/RPM-GPG-KEY-gravity-experimental
+    touch /etc/gravity-experimental-image
+fi
 echo "Packages within this disk image"
 rpm -qa --qf '%{size}\t%{name}-%{version}-%{release}.%{arch}\n' |sort -rn
 
@@ -117,7 +124,7 @@ done
 test -s /boot/dtb/apple/t8132-j773g.dtb
 
 # Both M4 profiles use protected kernel audio, not the legacy userspace DSP.
-if [[ "$kiwi_profiles" == *"Workstation-KDE"* ]]; then
+if [[ "$kiwi_profiles" == *"WorkstationCommon"* ]]; then
     shopt -s nullglob
     audio_configs=(/boot/config-*16k*)
     (( ${#audio_configs[@]} > 0 ))

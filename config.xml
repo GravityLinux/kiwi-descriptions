@@ -4,7 +4,7 @@
 	<description type="system">
 		<author>Gravity Linux contributors</author>
 		<contact>https://github.com/GravityLinux</contact>
-		<specification>Gravity Linux Fedora 44 KDE for the M4 Mac mini</specification>
+		<specification>Gravity Linux Fedora 44 Apple Silicon workstation images</specification>
 	</description>
 	<preferences>
 		<version>0.0.0</version>

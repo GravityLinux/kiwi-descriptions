@@ -1,5 +1,11 @@
 <image>
-  <repository type="rpm-md" alias="gravity" sourcetype="baseurl" priority="1" profiles="Workstation-KDE">
+  <profiles>
+    <profile name="Stable" description="Published Gravity packages"/>
+    <profile name="Experimental" description="Stable plus experimental Gravity packages">
+      <requires profile="Stable"/>
+    </profile>
+  </profiles>
+  <repository type="rpm-md" alias="gravity" sourcetype="baseurl" priority="1" profiles="Stable">
     <source path="https://download.copr.fedorainfracloud.org/results/adevwithanidea/gravity/fedora-44-aarch64/">
       <signing key="file:///usr/share/gravity-image-builder/RPM-GPG-KEY-gravity"/>
     </source>
@@ -10,4 +16,12 @@
       <signing key="file:///usr/share/gravity-image-builder/RPM-GPG-KEY-gravity"/>
     </source>
   </repository>
+  <repository type="rpm-md" alias="gravity-experimental" sourcetype="baseurl" priority="1" profiles="Experimental">
+    <source path="https://download.copr.fedorainfracloud.org/results/adevwithanidea/gravity-experimental/fedora-44-aarch64/">
+      <signing key="file:///usr/share/gravity-image-builder/RPM-GPG-KEY-gravity-experimental"/>
+    </source>
+  </repository>
+  <packages type="image" profiles="Experimental">
+    <package name="gravity-repos-experimental"/>
+  </packages>
 </image>

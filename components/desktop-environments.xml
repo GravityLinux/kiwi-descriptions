@@ -6,6 +6,9 @@
 		<profile name="KDE-Desktop" description="KDE Plasma Desktop">
 			<requires profile="DesktopCommon"/>
 		</profile>
+		<profile name="Sway-Desktop" description="Sway Wayland desktop">
+			<requires profile="Common"/>
+		</profile>
 	</profiles>
 	<packages type="image" patternType="plusRecommended" profiles="DesktopCommon">
 		<namedCollection name="firefox"/>
@@ -29,6 +32,7 @@
 		<package name="gravity-release-identity-kde"/>
 	</packages>
 	<packages type="image" patternType="plusRecommended" profiles="KDE-Desktop">
+		<package name="gravity-platform-metapackage-plasma"/>
 		<namedCollection name="kde-desktop-environment"/>
 		<namedCollection name="kde-apps"/>
 		<namedCollection name="kde-media"/>
@@ -39,5 +43,25 @@
 		<ignore name="initial-setup"/> <!-- redundant with plasma-setup -->
 		<ignore name="gnome-disk-utility"/>
 		<ignore name="system-config-printer"/>
+	</packages>
+	<packages type="bootstrap" profiles="Sway-Desktop">
+		<package name="gravity-release"/>
+		<package name="gravity-release-identity-basic"/>
+	</packages>
+	<packages type="image" patternType="plusRecommended" profiles="Sway-Desktop">
+		<package name="sway"/>
+		<package name="sway-config-fedora"/>
+		<package name="sddm-wayland-sway"/>
+		<package name="initial-setup-gui-wayland-sway"/>
+		<package name="foot"/>
+		<package name="waybar"/>
+		<package name="swaylock"/>
+		<package name="swayidle"/>
+		<package name="xdg-desktop-portal-wlr"/>
+		<package name="xdg-desktop-portal-gtk"/>
+		<package name="firefox"/>
+		<package name="mesa-dri-drivers"/>
+		<package name="mesa-vulkan-drivers"/>
+		<namedCollection name="fonts"/>
 	</packages>
 </image>

@@ -2,11 +2,17 @@
 	<profiles>
 		<profile name="WorkstationCommon" description="Workstation spin common configuration">
 			<requires profile="BootCore"/>
-			<requires profile="DesktopCommon"/>
+			<requires profile="Common"/>
 		</profile>
 		<profile name="Workstation-KDE" description="Workstation with KDE Desktop">
+			<requires profile="Stable"/>
 			<requires profile="WorkstationCommon"/>
 			<requires profile="KDE-Desktop"/>
+		</profile>
+		<profile name="Workstation-Sway-Experimental" description="Experimental workstation with Sway">
+			<requires profile="WorkstationCommon"/>
+			<requires profile="Sway-Desktop"/>
+			<requires profile="Experimental"/>
 		</profile>
 		<profile name="Workstation-KDE-Test" description="M4 hardware test with kernel-protected speaker audio">
 			<requires profile="WorkstationCommon"/>
@@ -29,7 +35,6 @@
 		<!-- The umbrella still pulls legacy DSP. J773g uses kernel protection. -->
 		<package name="gravity-platform-metapackage-core"/>
 		<package name="gravity-platform-metapackage-desktop"/>
-		<package name="gravity-platform-metapackage-plasma"/>
 		<package name="gravity-platform-metapackage-mesa"/>
 		<package name="gravity-platform-metapackage-fex"/>
 		<package name="pipewire"/>
