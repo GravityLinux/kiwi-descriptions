@@ -28,7 +28,8 @@ The wrapper fetches the experimental project's signing key. That key must exist
 before building (COPR currently returns 404 for the empty project's key URL).
 
 Experimental images consume the Swift installer's finished firmware CPIO through
-`dracut-gravity`. They omit `gravity-fwupdate` and its Python extraction triggers.
+`dracut-gravity`. For this one-install test they retain the old `gravity-fwupdate`
+package to satisfy the platform metapackage's dependency.
 Before a release, integrate regeneration of Swift raw firmware archives with a
 Linux updater; that work is deferred for this first installation test.
 

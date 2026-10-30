@@ -99,10 +99,6 @@ releasever=$(rpm --eval '%{fedora}')
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-primary
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-gravity
 if [[ "$kiwi_profiles" == *"Experimental"* ]]; then
-    if rpm -q gravity-fwupdate; then
-        echo 'Experimental Swift-installer image must not include the old firmware updater' >&2
-        exit 1
-    fi
     rpm --import /usr/share/gravity-image-builder/RPM-GPG-KEY-gravity-experimental
     touch /etc/gravity-experimental-image
 fi
