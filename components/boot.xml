@@ -1,6 +1,7 @@
 <image>
 	<profiles>
 		<profile name="BootCore" description="Boot core packages"/>
+		<profile name="FirmwareRebuild" description="Rebuild firmware from the Python installer raw archive"/>
 	</profiles>
 	<packages type="bootstrap" patternType="plusRecommended" profiles="BootCore">
 		<package name="grubby"/>
@@ -17,8 +18,15 @@
 		<package name="systemd-resolved"/>
 		<!-- Gravity boot and firmware consumers -->
 		<package name="gravity-bootloader" arch="aarch64"/>
-		<package name="gravity-fwupdate" arch="aarch64"/>
 		<package name="dracut-gravity" arch="aarch64"/>
 		<package name="update-m1n1" arch="aarch64"/>
+	</packages>
+	<packages type="image" profiles="FirmwareRebuild">
+		<package name="gravity-fwupdate" arch="aarch64"/>
+	</packages>
+	<!-- Swift already supplies the finished firmware bundle. Reprocessing it
+	     with the older Python extractor is deferred until release integration. -->
+	<packages type="image" profiles="Experimental">
+		<ignore name="gravity-fwupdate"/>
 	</packages>
 </image>

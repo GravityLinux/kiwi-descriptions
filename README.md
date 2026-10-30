@@ -27,6 +27,11 @@ The builder repositories also have equal priority; newer RPM versions win.
 The wrapper fetches the experimental project's signing key. That key must exist
 before building (COPR currently returns 404 for the empty project's key URL).
 
+Experimental images consume the Swift installer's finished firmware CPIO through
+`dracut-gravity`. They omit `gravity-fwupdate` and its Python extraction triggers.
+Before a release, integrate regeneration of Swift raw firmware archives with a
+Linux updater; that work is deferred for this first installation test.
+
 Use a separate installer ZIP filename containing `sway-experimental` and a unique
 timestamp. The default raw filename is shared across profiles, but each build
 uses its own fresh output directory. Publishing an experimental installer entry

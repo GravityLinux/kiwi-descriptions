@@ -5,6 +5,7 @@
 			<requires profile="Common"/>
 		</profile>
 		<profile name="Workstation-KDE" description="Workstation with KDE Desktop">
+			<requires profile="FirmwareRebuild"/>
 			<requires profile="Stable"/>
 			<requires profile="WorkstationCommon"/>
 			<requires profile="KDE-Desktop"/>
@@ -15,6 +16,7 @@
 			<requires profile="Experimental"/>
 		</profile>
 		<profile name="Workstation-KDE-Test" description="M4 hardware test with kernel-protected speaker audio">
+			<requires profile="FirmwareRebuild"/>
 			<requires profile="WorkstationCommon"/>
 			<requires profile="KDE-Desktop"/>
 		</profile>

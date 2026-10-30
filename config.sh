@@ -99,6 +99,10 @@ releasever=$(rpm --eval '%{fedora}')
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-primary
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-gravity
 if [[ "$kiwi_profiles" == *"Experimental"* ]]; then
+    if rpm -q gravity-fwupdate; then
+        echo 'Experimental Swift-installer image must not include the old firmware updater' >&2
+        exit 1
+    fi
     rpm --import /usr/share/gravity-image-builder/RPM-GPG-KEY-gravity-experimental
     touch /etc/gravity-experimental-image
 fi
@@ -120,6 +124,9 @@ sed -i 's:\(DEFAULTKERNEL=\)kernel-core:\1kernel-16k-core:' /etc/sysconfig/kerne
 # Fail closed if a stock package silently satisfied a Gravity dependency.
 for package in kernel-16k-core mesa-dri-drivers mesa-vulkan-drivers gravity-bootloader uboot-images-armv8; do
     [[ "$(rpm -q --qf '%{RELEASE}' "$package")" == *gravity* ]]
+    if [[ "$kiwi_profiles" == *"Experimental"* ]]; then
+        [[ "$(rpm -q --qf '%{RELEASE}' "$package")" == *gravity.experimental* ]]
+    fi
 done
 test -s /boot/dtb/apple/t8132-j773g.dtb
 
